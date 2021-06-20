@@ -7,8 +7,8 @@ FROM node:lts AS server-build
 WORKDIR /usr/src/app/server
 COPY --from=ui-build /usr/src/app/client/user-service/dist ./client
 #COPY package*.json ./
-#RUN npm install
 COPY server/ .
+RUN npm install
 ENV PORT=8080
 EXPOSE 8080
 CMD ["npm","run", "start"]
