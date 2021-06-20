@@ -6,6 +6,21 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
 import { MaterialModule } from './material/material.module'
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+
+const config = {    
+  apiKey: "AIzaSyA8SJNujTKurGNLA15PQqPjz0Pi2rpeEAw",
+  authDomain: "ms-user-service.firebaseapp.com",
+  projectId: "ms-user-service",
+  storageBucket: "ms-user-service.appspot.com",
+  messagingSenderId: "947016479819",
+  appId: "1:947016479819:web:6d4c58d6aa90077f6349ce",
+  measurementId: "G-XYP3W8XE9Y"
+}
+
 
 @NgModule({
   declarations: [
@@ -16,7 +31,12 @@ import { MaterialModule } from './material/material.module'
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    AngularFireModule.initializeApp(config),
+    AngularFireAuthModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxAuthFirebaseUIModule.forRoot(PUT_YOUR_FIREBASE_API_KEY_HERE)
   ],
   exports:[
     LoginComponent
