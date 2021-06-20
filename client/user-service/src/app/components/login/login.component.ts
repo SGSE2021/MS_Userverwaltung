@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +10,42 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+ loginForm = new FormGroup({
+    email: new FormControl('',[Validators.required, Validators.email]),
+    password: new FormControl('',Validators.required),
+  });
+  loading = false;
+  submitted=false;
+  constructor(
+    private authService:AuthService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+    ) { 
+    }
 
   ngOnInit(): void {
+    if (this.authService.currentUserToken) {
+      this.router.navigate(['/']);
+    }
   }
 
+  async login(){
+    this.submitted=true;
+    if(this.loginForm.invalid){
+      return;
+    }
+    this.loading=true;
+    try {
+      const mail = this.loginForm.controls.email.value;
+      const password = this.loginForm.controls.password.value;
+      await this.authService.login(mail,password);
+
+      const returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
+      this.router.navigateByUrl(returnUrl);
+    } catch (error) {
+      console.log(error);
+      this.loading= false;
+    }
+   
+  }
 }
