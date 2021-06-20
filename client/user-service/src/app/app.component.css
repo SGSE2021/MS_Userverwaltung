@@ -1,0 +1,25 @@
+mat-sidenav-container{
+    height:100%;
+}
+/* mat-sidenav, mat-sidenav-content{
+    padding:16 px;
+} */
+mat-sidenav {
+    width: 200px;
+    display:block;
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+#user{
+    display:block;
+}
+.mat-icon{
+    transform: scale(1.5);
+}
+#userContainer{
+    display:flex;
+    flex-direction: column;
+  align-items: center;
+}

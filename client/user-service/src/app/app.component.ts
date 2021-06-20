@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  opened = false;
   title = 'user-service';
+
+  log(state:string){
+    console.log(state);
+  }
 }
