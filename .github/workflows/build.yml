@@ -2,12 +2,12 @@ name: Build and test application
 
 on:
   # Triggers the workflow on push or pull request events on all branches except main
-  push:
-    branches-ignore:
-      - main
-  pull_request:
-    branches-ignore:
-      - main
+  #push:
+  #  branches-ignore:
+  #    - main
+  #pull_request:
+  #  branches-ignore:
+  #    - main
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,7 +18,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Dummy Action
-        uses: actions/hello-world-javascript-action@main
-        with:
-          who-to-greet: 'Hello World'
+      - uses: actions/checkout@v2
+      - name: Build the docker-compose stack
+        run: docker-compose -f docker-compose.yml up -d
+      - name: Check running containers
+        run: docker ps -a
+      - name: Stop docker container
+        run: docker-compose down
