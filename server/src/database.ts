@@ -19,19 +19,21 @@ export class Database{
       }
 
     private async do(){
-        // await this.prisma.student.create({
-        //     data: {
-        //         id:"test",
-        //         firstname: 'Dennis',
-        //         lastname:"Eller",
-        //         birthdate:new Date(1996, 12, 24),
-        //         gender: 'MALE',
-        //         mail:"dennis-eller@gmx.net",
-        //         active:true,
-        //         title:"",
-        //         phone:""
-        //        },
-        //   })
+        await this.prisma.student.create({
+            data: {
+                id:"test",
+                firstname: 'Dennis',
+                lastname:"Eller",
+                birthdate:new Date(1996, 12, 24),
+                gender: 'MALE',
+                mail:"dennis-eller@gmx.net",
+                active:true,
+                title:"",
+                phone:"",
+                matriculationsNumber:"101",
+                semester:1
+               },
+          })
         
         
           const allStudents = await this.prisma.student.findMany({
@@ -48,4 +50,9 @@ export class Database{
     }
 }
 
+const db = new Database();
+db.main();
+
+const prisma = new PrismaClient();
+export default prisma;
 

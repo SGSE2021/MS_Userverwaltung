@@ -41,6 +41,8 @@ model Student {
   active Boolean
   course StudyCourse? @relation(fields: [courseId],references: [id])
   courseId Int?
+  semester Int
+  matriculationsNumber String
 }
 
 model Lecturer {

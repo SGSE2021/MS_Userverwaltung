@@ -4,20 +4,25 @@ import Route from "../common/interfaces/route.interface";
 
 // import cors from "cors";
 
-export class App {
-    public express;
-
+export class RestServerClient {
+    private app: express.Application;
     constructor(routes:Route[]) {
-        this.express = express();
+
+        this.app = express();
         this.mountRoutes(routes);
 
-        this.express.use(errorMiddleware);
+        this.app.use(errorMiddleware);
     }
 
 
     private mountRoutes(routes:Route[]): void {
               routes.forEach(route => {
-                this.express.use('/', route.router);
+                this.app.use('/', route.router);
             });
-            }
+    }
+    public start(port:number | string):void{
+        this.app.listen(port,()=>{
+            console.log(`🚀 App listening on port ${port}`);
+        });
+    }
 }
