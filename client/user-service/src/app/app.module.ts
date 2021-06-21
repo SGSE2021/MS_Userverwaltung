@@ -10,6 +10,8 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+
 
 const config = {    
   apiKey: "AIzaSyA8SJNujTKurGNLA15PQqPjz0Pi2rpeEAw",
@@ -36,7 +38,8 @@ const config = {
     AngularFireAuthModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxAuthFirebaseUIModule.forRoot(PUT_YOUR_FIREBASE_API_KEY_HERE)
+    NgxAuthFirebaseUIModule.forRoot(config),
+    MatPasswordStrengthModule
   ],
   exports:[
     LoginComponent
