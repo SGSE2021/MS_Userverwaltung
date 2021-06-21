@@ -13,7 +13,7 @@ class StudentsService {
     }
 
     //Return all recipes of the database-
-    public async getAllRecipes(): Promise<StudentPreviewDTO[]> {
+    public async getAllStudents(): Promise<StudentPreviewDTO[]> {
         const foundStudents : Student[] = await prisma.student.findMany();
     
         const allStudents = [];

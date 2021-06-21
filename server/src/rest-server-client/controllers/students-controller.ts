@@ -11,7 +11,7 @@ class StudentsController {
     //Return all recipes of the database
     public getAllStudents = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            const allStudents: StudentPreviewDTO[] = await this.studentsService.getAllRecipes();
+            const allStudents: StudentPreviewDTO[] = await this.studentsService.getAllStudents();
             res.status(200).json(allStudents);
         } catch (error) {
             next(error);
