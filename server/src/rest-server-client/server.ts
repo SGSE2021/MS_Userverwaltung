@@ -1,8 +1,8 @@
 import express from 'express';
-import { errorMiddleware } from './middlewares/error.middleware';
-import Route from "../interfaces/route.interface";
+import { errorMiddleware } from '../common/middlewares/error.middleware';
+import Route from "../common/interfaces/route.interface";
 
-import cors from "cors";
+// import cors from "cors";
 
 export class App {
     public express;
