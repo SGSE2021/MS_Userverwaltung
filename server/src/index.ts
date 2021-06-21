@@ -12,8 +12,10 @@ async function main(){
     await database.main();
     
     // define a route handler for the default home page
-    app.get( "/", ( req, res ) => {
-        res.send( "Hello world from ts!<<<");
+    app.get( "/", async ( req, res ) => {
+        const result = await database.main();
+        res.send( result);
+        
     } );
     
     // start the Express server
