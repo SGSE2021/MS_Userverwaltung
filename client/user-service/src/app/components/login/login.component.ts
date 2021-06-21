@@ -24,8 +24,9 @@ export class LoginComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    if (this.authService.currentUserToken) {
-      this.router.navigate(['/']);
+    if (this.authService.currentToken) {
+      //this.router.navigate(['/']);
+      console.log("Already logged in");
     }
   }
 

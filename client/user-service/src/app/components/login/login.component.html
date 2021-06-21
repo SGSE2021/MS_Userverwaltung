@@ -1,5 +1,6 @@
-<form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
 
+<form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
+  <h1>Loggen Sie sich ein</h1>
   <mat-form-field class="example-full-width">
     <mat-label>E-Mail</mat-label>
     <input matInput formControlName="email">
@@ -11,6 +12,5 @@
   </mat-form-field>
 
   <a class="example-full-width">Passwort vergessen?</a>
-  <button type="submit">Anmelden</button>
-  
+  <button mat-raised-button color="primary">Einloggen</button>
 </form>
