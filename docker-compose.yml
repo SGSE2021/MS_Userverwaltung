@@ -4,15 +4,15 @@ services:
         build: .
         ports:
             -  "8080:8080"
-    #     depends_on: 
-    #         - postgres
-    # postgres:
-    #     image: postgres
-    #     environment: 
-    #         POSTGRES_USER: admin
-    #         POSTGRES_PASSWORD: sgse2021
-    #         POSTGRES_DB: users
-    #     volumes: 
-    #         - ./pgdata:/var/lib/postgresql/data
-    #     ports:
-    #         - "5432:5432"
+        depends_on: 
+            - postgres
+    postgres:
+        image: postgres
+        environment: 
+            POSTGRES_USER: admin
+            POSTGRES_PASSWORD: sgse2021
+            POSTGRES_DB: users
+        volumes: 
+            - ./pgdata:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
