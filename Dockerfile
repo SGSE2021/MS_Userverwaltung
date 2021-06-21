@@ -1,7 +1,6 @@
 FROM node:lts AS ui-build
 WORKDIR /usr/src/app
 COPY client/user-service ./client/user-service
-CMD ["ls","-l"]
 RUN cd client/user-service && npm install @angular/cli && npm install && npm run build
 
 
