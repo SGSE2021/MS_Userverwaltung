@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ts-node",
+            "type": "pwa-node",
+            "request": "launch",
+            "args": [
+                "${workspaceRoot}/server/src/index.ts"
+            ],
+            "runtimeArgs": [
+                "-r",
+                "${workspaceRoot}/server/node_modules/ts-node/register"
+            ],
+            "cwd": "${workspaceRoot}",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "name": "Angular",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}",
+            "pathMappings": [
+                {
+                    "url": "webpack:///src",
+                    "path": "${workspaceFolder}/client/user-service/src"
+                }
+            ]
+        },
+        {
+            "type": "chrome",
+            "request": "attach",
+            "name": "Attach to Chrome",
+            "port": 9222,
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
