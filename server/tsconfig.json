@@ -10,12 +10,13 @@
         "baseUrl": ".",
         "strict": true,
         "lib":["ESNext"],
-        "paths": {
-            "*": [
-                "node_modules/*"
-            ]
-        }
     },
+    "files": [
+        "node_modules/typescript/lib/lib.es6.d.ts"
+      ],
+      "exclude": [
+        "node_modules"
+      ],
     "include": [
         "src/**/*"
     ]

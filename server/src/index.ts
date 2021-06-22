@@ -3,6 +3,10 @@ import prisma from "./database"
 import StudentsRoute from "./rest-server-client/routes/students.route";
 import { RestServerClient } from "./rest-server-client/server";
 
+import  "./databaseInitiator";
+
+
+
 const port = 8080; // default port to listen
 const restServerClient = new RestServerClient([new StudentsRoute()]);
 
