@@ -10,27 +10,27 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class LoginComponent implements OnInit {
 
- loginForm = new FormGroup({
+ public loginForm = new FormGroup({
     email: new FormControl('',[Validators.required, Validators.email]),
     password: new FormControl('',Validators.required),
   });
   loading = false;
   submitted=false;
   constructor(
-    private authService:AuthService,
+    public  authService:AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute
     ) { 
     }
 
   ngOnInit(): void {
-    if (this.authService.currentToken) {
-      //this.router.navigate(['/']);
+    if (this.authService.currentToken.value) {
       console.log("Already logged in");
+      this.router.navigate(['/']);
     }
   }
 
-  async login(){
+  public async login(){
     this.submitted=true;
     if(this.loginForm.invalid){
       return;
@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
 
       const returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
       this.router.navigateByUrl(returnUrl);
+      console.log(`returning to ${returnUrl}`);
     } catch (error) {
       console.log(error);
       this.loading= false;

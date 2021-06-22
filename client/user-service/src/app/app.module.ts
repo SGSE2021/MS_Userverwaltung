@@ -11,6 +11,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { SettingsComponent } from './components/settings/settings.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
 
 
 const config = {    
@@ -27,7 +29,9 @@ const config = {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    SettingsComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

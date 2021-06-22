@@ -1,5 +1,5 @@
 
-<form class="example-form" [formGroup]="loginForm" (ngSubmit)="login()">
+<form class="example-form" [formGroup]="loginForm" (ngSubmit)= "login()">
   <h1>Loggen Sie sich ein</h1>
   <mat-form-field class="example-full-width">
     <mat-label>E-Mail</mat-label>
@@ -14,3 +14,14 @@
   <a class="example-full-width">Passwort vergessen?</a>
   <button mat-raised-button color="primary">Einloggen</button>
 </form>
+
+<!-- <div *ngIf="authService.currentToken | async as user; else loginTemplate">
+  <pre>{{user | json}}</pre>
+  <hr>
+  <button class ="button" (click) ="authService.logout()">Ausloggen</button>
+</div>
+
+<ng-template #loginTemplate>
+  <button class = "button" (click)= "login()" >Einloggen</button>
+</ng-template> -->
+

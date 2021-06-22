@@ -2,12 +2,25 @@
 <mat-sidenav-container>
 
   <mat-sidenav [(opened)] ="opened">
+    <!-- <mat-sidenav opened mode="side"> -->
     <mat-toolbar color="primary">
-      <span>ILIAS 2.0</span>
+      <div id="logo">
+        <mat-icon>school</mat-icon>
+        <span>ILIAS 2.0</span>
+      </div>
     </mat-toolbar>
     <mat-nav-list>
-    <a mat-list-item color="primary">Startseite</a>
-    <a mat-list-item color="primary">Nachrichten</a>
+    <a mat-list-item color="primary" [routerLink]="['/']" (click)="opened=false">Startseite</a>
+    <a mat-list-item color="primary"href="https://www.google.de" (click)="opened=false">Nachrichten</a>
+    <a mat-list-item color="primary" (click)="opened=false">Kurse</a>
+    <a mat-list-item color="primary" (click)="opened=false">Termine</a>
+    <a mat-list-item color="primary"(click)="opened=false" >Prüfungen</a>
+    <a mat-list-item color="primary"(click)="opened=false" >Studierende</a>
+    <a mat-list-item color="primary"(click)="opened=false" >Lehrende</a>
+    <a mat-list-item color="primary"(click)="opened=false">Raumbuchung</a>
+    
+    <a *ngIf= "(this.authService.currentToken.value !== null)" mat-list-item color="primary" (click)="authService.logout()">Ausloggen</a>
+    <a *ngIf= "(this.authService.currentToken.value === null)" mat-list-item color="primary" (click)="authService.logout()">Einloggen</a>
   </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -19,9 +32,9 @@
     <span class="example-spacer"></span>
     <div id="userContainer">
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-        <mat-icon >account_circle</mat-icon>
+        <mat-icon [routerLink]="['/settings']" >account_circle</mat-icon>
     </button>
-    <label>Dennis Eller</label>
+    <label>{{this.authService.currentToken.value?.substring(0,8)}}</label>
   </div>
   </mat-toolbar>
   <!-- <ngx-auth-firebaseui-login 
@@ -33,6 +46,3 @@
 
 
   <router-outlet></router-outlet>
-</mat-sidenav-content>
-</mat-sidenav-container>
-
