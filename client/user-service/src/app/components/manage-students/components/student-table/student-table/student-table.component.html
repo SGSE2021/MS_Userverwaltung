@@ -26,7 +26,8 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label >Vorname</mat-label>
-      <input [value]="student?.firstname" matInput formControlName="firstname">
+      <input *ngIf="(student&& student.firstname!=null)" [(ngModel)]="student.firstname" matInput formControlName="firstname">
+      <input *ngIf="!(student&& student.firstname!=null)"  matInput formControlName="firstname">
     </mat-form-field>
     <mat-form-field class="example-full-width" appearance="fill" >
       <mat-label>Nachname</mat-label>

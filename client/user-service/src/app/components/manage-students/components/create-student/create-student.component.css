@@ -1,0 +1,14 @@
+#footer{
+    width: 100%;
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2em;
+}
+
+#btnAddStudent{
+    margin-left: 16px;
+}
+
+#btnCancel{
+    margin-right: 16px;
+}
