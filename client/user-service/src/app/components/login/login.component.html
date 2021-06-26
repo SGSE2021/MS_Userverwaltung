@@ -12,7 +12,7 @@
   </mat-form-field>
 
   <a class="example-full-width">Passwort vergessen?</a>
-  <button mat-raised-button color="primary">Einloggen</button>
+  <button [disabled]=loginForm.invalid mat-raised-button color="primary">Einloggen</button>
 </form>
 
 <!-- <div *ngIf="authService.currentToken | async as user; else loginTemplate">

@@ -1,0 +1,5 @@
+<app-student-table #table></app-student-table>
+<div  id="footer">
+    <button [disabled]=table?.studentForm?.invalid mat-raised-button  color="primary">Studierenden hinzufügen</button>
+    <button mat-raised-button (click) ="onNoClick()">Abbrechen</button>
+  </div>

@@ -1,6 +1,6 @@
 import {Gender} from "./gender.enum";
 import {StudyCourseDTO} from "./study-course.dto"
-export interface StudentDTO{
+export interface StudentDTO{ 
     id?:string;
     title:string;
     firstname: string;

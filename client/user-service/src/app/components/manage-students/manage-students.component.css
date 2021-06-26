@@ -4,11 +4,27 @@ table {
   }
   
   #btnAddStudent{
-    float: right;
+    margin-bottom: 1.5em;
+    min-width: 200px;
   }
-  
+  #footer{
+      width: 50%;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 2em;
+  }
+
+  #header{
+    width: 100%;
+    display:grid;
+    grid-template-columns: 1fr 10fr 1fr;
+    grid-gap: 2em;
+}
+
+
   #container{
-    margin:16px;
+    width: 80%;
+    margin:2em auto 2em auto;
     display: grid;
     place-items: center;
   }
@@ -17,7 +33,8 @@ table {
     border-top: 1px solid transparent;
     cursor: pointer;
   }
-  
+
+    
   .mat-row:hover .mat-cell {
     border-color: currentColor;
   }
@@ -26,11 +43,3 @@ table {
     font-weight: bold;
   }
   
-  .detail-form{
-    width: 50%;
-    display:grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .detail-form>*{
-margin:16px;
-  }

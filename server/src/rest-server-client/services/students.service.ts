@@ -2,6 +2,7 @@
 import { StudentDTO } from "@common/dto/student.dto"
 import { HttpException } from "../../common/exceptionTypes/httpException";
 import {Student,PrismaClient} from "../../../../database/node_modules/prisma/prisma-client"
+import prisma from "../../database";
 import { StudentMapper } from "../../common/mapper/student.mapper";
 class StudentsService {
 
@@ -15,8 +16,6 @@ class StudentsService {
 
     //Return all recipes of the database-
     public async getAllStudents() {
-        const prisma = new PrismaClient();
-
         const foundStudents = await prisma.student.findMany({include:{
             course:{
                 include:{

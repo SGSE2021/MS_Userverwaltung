@@ -1,10 +1,14 @@
 import { HttpClient, JsonpClientBackend } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {StudentPreviewDTO} from "@common/dto/student-preview.dto"
 import {StudentDTO} from "@common/dto/student.dto"
 import {Gender} from "@common/dto/gender.enum"
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import {Student} from "../../../../../../database/node_modules/prisma/prisma-client"
+import { formatCurrency } from '@angular/common';
+import { StudentTableComponent } from './components/student-table/student-table/student-table.component';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateStudentComponent } from './components/create-student/create-student.component';
 
 
 let STUDENT_DATA: StudentPreviewDTO[];
@@ -12,45 +16,40 @@ let STUDENT_DATA: StudentPreviewDTO[];
 @Component({
   selector: 'app-manage-students',
   templateUrl: './manage-students.component.html',
-  styleUrls: ['./manage-students.component.css']
+  styleUrls: ['./manage-students.component.css'],
 })
 export class ManageStudentsComponent implements OnInit {
-  displayedColumns: string[] = ['uid', 'firstname', 'lastname'];
+  displayedColumns: string[] = ['uid', 'title','lastname','firstname','matriculationNumber','studyCourse','degree','department'];
   dataSource = STUDENT_DATA;
-  clickedRow :StudentDTO | undefined;
-  gender  = JSON.parse(JSON.stringify(Gender));
-  
+  clickedRow :StudentDTO | null=null;
 
-  public dataForm = new FormGroup({
-    email: new FormControl('',[Validators.required, Validators.email]),
-    firstname: new FormControl('',Validators.required),
-    lastname: new FormControl('',Validators.required),
-    studyCourse: new FormControl('',Validators.required),
-    phone: new FormControl('',Validators.required),
-    mail: new FormControl('',Validators.required),
-    gender: new FormControl('',Validators.required),
-    title: new FormControl('',Validators.required),
-    birthday: new FormControl('',Validators.required),
-    department: new FormControl('',Validators.required),
-    matriculationNumber: new FormControl('',Validators.required)
-  });
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient, public dialog:MatDialog) { }
 
   async ngOnInit(): Promise<void> {
-    console.log(this.gender);
     const observer = await this.httpClient.get<Student[]>("http://localhost:8080/students").subscribe(students=>{
-    //students[0].  
+
     this.dataSource = students;
+ 
+    this.dataSource.push(...JSON.parse(JSON.stringify(this.dataSource.slice(0))));
+    this.dataSource[0].id="12";
       console.log(students);
     });
 
     //STUDENT_DATA = response; 
     console.log(observer);
+
+
   }
 
-  public log(a:unknown){
-    console.log(a);
-     
+  public log(l:unknown){
+    console.log(l);
+  }
+  openAddStudentDialog(): void {
+    const dialogRef = this.dialog.open(CreateStudentComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
   }
 
 }
