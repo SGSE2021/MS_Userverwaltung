@@ -1,4 +1,4 @@
-import { Student } from ".prisma/client";
+import { Student } from "../../database/node_modules/prisma/prisma-client";
 import prisma from "./database";
 /// <reference lib="dom" />
 import * as firebaseAdmin  from "firebase-admin";
@@ -49,20 +49,22 @@ async function test(){
     // The transaction runs synchronously so deleteUsers must run last.
     await prisma.$transaction([
         deleteAdministrative,
+        deleteStudyCourses,
         deleteDepartment,
         deleteLecturer,
         deleteStudents,
-        deleteStudyCourses
+        
     ])
 
       console.log("dropped")
 
     const listUsersResult = await adminApp.auth().listUsers();
-    console.log(listUsersResult.users);
+    console.log("Firebase users: "+listUsersResult.users.length);
 
-    for(const user of listUsersResult.users){
+    //for(const user of listUsersResult.users){
+        let user = listUsersResult.users[0];
         if(!user.email){return;}
-        await prisma.student.create({
+        const newUser = await prisma.student.create({
             data:{
                 active:true,
                 birthdate:new Date(),
@@ -71,11 +73,40 @@ async function test(){
                 gender:"MALE",
                 id:user.uid,
                 mail : user.email,
-                matriculationsNumber:getRandomInt(1000000).toString(),
+                matriculationNumber:getRandomInt(1000000).toString(),
                 semester:getRandomInt(10),
+
+            },
+           
+        })
+    //}
+
+        const department = await prisma.department.create({
+            data:{
+                name:"Campus Minden",
+                description:"Campus in Minden"
             }
         })
-    }
+
+        const infMaster = await prisma.studyCourse.create({
+            data:{
+                name:"Informatik",
+                degree:"Master",
+                departmentId:department.id
+            }
+        })
+
+        await prisma.student.update({
+            where:{
+                id:newUser.id
+            },
+            data:{
+                courseId:infMaster.id
+            }
+        })
+
+
+  
     console.log("added");
 }
 
@@ -84,92 +115,6 @@ test();
 
 
 
-export abstract class DatabaseInitiator{
-    public  static async  generateEntities(){
-        
-        await this.addStudent({
-            id:"",
-            firstname: 'Dennis',
-            lastname:"Eller",
-            birthdate:new Date(1996, 12, 24),
-            gender: 'MALE',
-            mail:"dennis-eller@gmx.net",
-            active:true,
-            title:"",
-            phone:"",
-            matriculationsNumber:"1125631",
-            semester:1,
-            courseId:null
-           });
-           await this.addStudent({
-            id:"",
-            firstname: 'Julia',
-            lastname:"Meier",
-            birthdate:new Date(1998, 3, 12),
-            gender: 'FEMALE',
-            mail:"julia.meier@fh-bielefeld.de",
-            active:true,
-            title:"",
-            phone:"",
-            matriculationsNumber:"1123684",
-            semester:5,
-            courseId:null
-           })
-    }
 
-    private static async addStudent(student:Student){
-       await prisma.student.create({data: student});
-    }
-}
-
-
-export class Database{
-
-    private prisma = prisma;
-    async main() {
-        try {
-            return await this.do();
-        } 
-        catch (error) {
-            throw error;
-        }
-        finally{
-            await this.prisma.$disconnect();
-        }
-      }
-
-    private async do(){
-        await this.prisma.student.create({
-            data: {
-                id:"test",
-                firstname: 'Dennis',
-                lastname:"Eller",
-                birthdate:new Date(1996, 12, 24),
-                gender: 'MALE',
-                mail:"dennis-eller@gmx.net",
-                active:true,
-                title:"",
-                phone:"",
-                matriculationsNumber:"101",
-                semester:1
-               },
-          })
-        
-        
-          const allStudents = await this.prisma.student.findMany({
-          })   
-          console.dir(allStudents, { depth: null })
-
-        //   const post = await this.prisma.post.update({
-        //     where: { id: 1 },
-        //     data: { published: true },
-        //   })
-          //console.log(post)
-
-          return allStudents;
-    }
-}
-
-const db = new Database();
 //db.main();
 

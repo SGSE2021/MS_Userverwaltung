@@ -7,9 +7,12 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "dist",
-        "baseUrl": ".",
+        "baseUrl": "",
         "strict": true,
         "lib":["ESNext"],
+        "paths": {
+          "@common/*":["../common/*"]
+        }
     },
     "files": [
         "node_modules/typescript/lib/lib.es6.d.ts"

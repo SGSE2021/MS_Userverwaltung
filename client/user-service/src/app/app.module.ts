@@ -13,7 +13,10 @@ import { NgxAuthFirebaseUIModule } from 'ngx-auth-firebaseui';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import { SettingsComponent } from './components/settings/settings.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
-
+import { ManageStudentsComponent } from './components/manage-students/manage-students.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CommonModule } from '@angular/common';  
 
 const config = {    
   apiKey: "AIzaSyA8SJNujTKurGNLA15PQqPjz0Pi2rpeEAw",
@@ -31,10 +34,13 @@ const config = {
     AppComponent,
     LoginComponent,
     SettingsComponent,
-    HomePageComponent
+    HomePageComponent,
+    ManageStudentsComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
@@ -48,7 +54,7 @@ const config = {
   exports:[
     LoginComponent
   ],
-  providers: [],
+  providers: [{provide: MAT_DATE_LOCALE,useValue:'de-de'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

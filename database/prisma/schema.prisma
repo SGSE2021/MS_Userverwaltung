@@ -42,7 +42,7 @@ model Student {
   course StudyCourse? @relation(fields: [courseId],references: [id])
   courseId Int?
   semester Int
-  matriculationsNumber String
+  matriculationNumber String
 }
 
 model Lecturer {

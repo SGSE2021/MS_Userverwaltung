@@ -1,14 +1,17 @@
 import express from 'express';
 import { errorMiddleware } from '../common/middlewares/error.middleware';
 import Route from "../common/interfaces/route.interface";
+import cors from "cors";
 
-// import cors from "cors";
 
 export class RestServerClient {
     private app: express.Application;
     constructor(routes:Route[]) {
 
         this.app = express();
+         this.app.use(cors({credentials: true, origin: function (origin:any, callback:any) {
+              callback(null, true);
+          }}));
         this.mountRoutes(routes);
 
         this.app.use(errorMiddleware);
