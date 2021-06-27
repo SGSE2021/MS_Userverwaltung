@@ -14,19 +14,33 @@ export class StudentMapper{
                 firstname:item.firstname,
                 lastname:item.lastname,
                 matriculationNumber:item.matriculationNumber,
-                studyCourse:item.course,
+                courseId:item.courseId,
                 birthdate:item.birthdate,
                 gender:item.gender,
                 mail:item.mail,
                 title:item.title,
-                phone:item.phone
+                phone:item.phone,
+                semester:item.semester
+        }
     }
 
-    // toPersistence(u: RecipePreviewDTO): RecipePreview {
-    //     return undefined;
-    // }
+    toPreviewDTO(item: Student): StudentDTO | null {
+        return {
+                id:item.id,
+                active:item.active,
+                firstname:item.firstname,
+                lastname:item.lastname,
+                matriculationNumber:item.matriculationNumber,
+                courseId:item.courseId,
+                birthdate:item.birthdate,
+                gender:item.gender,
+                mail:item.mail,
+                title:item.title,
+                phone:item.phone,
+                semester:item.semester
+        }
+    }
 
 
-}
 
 }

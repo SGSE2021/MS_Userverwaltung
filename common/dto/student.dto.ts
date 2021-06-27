@@ -1,7 +1,7 @@
 import {Gender} from "./gender.enum";
 import {StudyCourseDTO} from "./study-course.dto"
 export interface StudentDTO{ 
-    id?:string;
+    id:string;
     title:string;
     firstname: string;
     lastname: string;
@@ -11,5 +11,6 @@ export interface StudentDTO{
     phone:string|null
     active: boolean;
     matriculationNumber:string,
-    studyCourse:StudyCourseDTO | null
+    semester:number
+    courseId:number | null
 }
