@@ -1,5 +1,5 @@
 //import { StudentPreviewMapper } from "@common/mapper/student-preview.mapper";
-import { StudentDTO } from "@common/dto/student.dto"
+import { StudentDTO } from "../../../../common/dto/student.dto"
 import { HttpException } from "../../common/exceptionTypes/httpException";
 import {Student,Prisma, Gender} from "../../../../database/node_modules/prisma/prisma-client"
 import prisma from "../../database";
@@ -39,12 +39,12 @@ class StudentsService {
 
     public async addStudent(userData: StudentDTO){
 
-        const {gender, ...rest} = userData;
-        const newUser = await prisma.student.create({data:{
-            ...rest,gender:this.test(gender)
-        }})
+        // const {gender, ...rest} = userData;
+        // const newUser = await prisma.student.create({data:{
+        //     ...rest,gender:this.test(gender)
+        // }})
 
-        const result = this.studentMapper.toPreviewDTO(newUser);
+        // const result = this.studentMapper.toPreviewDTO(newUser);
     }
 
     private test(gender:string) {

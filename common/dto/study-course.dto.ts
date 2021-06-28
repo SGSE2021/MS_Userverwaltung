@@ -3,5 +3,5 @@ export interface StudyCourseDTO {
     id:number,
     name:string,
     degree:String
-    department:DepartmentDTO | null
+    department:DepartmentDTO
 }

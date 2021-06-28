@@ -1,4 +1,4 @@
-import { StudentDTO } from '@common/dto/student.dto';
+import { StudentDTO } from '../../../../common/dto/student.dto';
 import { NextFunction, Request, Response } from 'express';
 import { HttpException } from '../../common/exceptionTypes/httpException';
 import StudentsService from '../services/students.service';

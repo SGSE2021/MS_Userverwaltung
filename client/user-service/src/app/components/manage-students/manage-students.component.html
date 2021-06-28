@@ -41,20 +41,20 @@
     </ng-container>
 
 
-    <ng-container matColumnDef="studyCourse">
+    <ng-container matColumnDef="course">
       <th mat-header-cell *matHeaderCellDef> Studiengang </th>
-      <td mat-cell *matCellDef="let element"> {{element.studyCourse.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.course.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="degree">
       <th mat-header-cell *matHeaderCellDef> Abschluss </th>
-      <td mat-cell *matCellDef="let element"> {{element.studyCourse.degree}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.course.degree}} </td>
     </ng-container>
 
 
     <ng-container matColumnDef="department">
       <th mat-header-cell *matHeaderCellDef> Fachbereich </th>
-      <td mat-cell *matCellDef="let element"> {{element.studyCourse.department.name}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.course.department.name}} </td>
     </ng-container>
     
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -66,11 +66,11 @@
   </table>
 
   
- <app-student-table #table [student]="clickedRow" ></app-student-table>
+ <app-student-table #table [departmentPool]="departmentPool" [student]="clickedRow" ></app-student-table>
   
   
   <div *ngIf="clickedRow" id="footer">
-    <button [disabled]=table?.studentForm?.invalid mat-raised-button  color="primary">Änderungen speichern</button>
+    <button [disabled]= "table?.studentForm?.invalid" mat-raised-button  color="primary">Änderungen speichern</button>
     <button mat-raised-button>Studierenden entfernen</button>
   </div>
 </div>

@@ -19,8 +19,10 @@ export class CreateStudentComponent implements OnInit {
     mail:"",
     matriculationNumber:"",
     phone:"",
-    studyCourse:null,
-    title:""
+    course:null,
+    title:"",
+    semester:1,
+    id:""
   };
   constructor(
     public dialogRef: MatDialogRef<CreateStudentComponent>,
