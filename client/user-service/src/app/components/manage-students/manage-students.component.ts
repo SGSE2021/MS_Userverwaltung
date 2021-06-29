@@ -13,8 +13,6 @@ import { DepartmentDTO } from '@common/dto/department.dto';
 import { DepartmentPoolDTO } from '@common/dto/department-pool.dto';
 
 
-let STUDENT_DATA: StudentPreviewDTO[];
-
 @Component({
   selector: 'app-manage-students',
   templateUrl: './manage-students.component.html',
@@ -22,10 +20,9 @@ let STUDENT_DATA: StudentPreviewDTO[];
 })
 export class ManageStudentsComponent implements OnInit {
   displayedColumns: string[] = ['uid', 'title','lastname','firstname','matriculationNumber','course','degree','department'];
-  dataSource = STUDENT_DATA;
-  clickedRow :StudentDTO | null=null;
+  dataSource : StudentDTO[] = [];
+  selectedStudentId: string | null = null;
   departmentPool: DepartmentPoolDTO[]=[];
-  pageLoaded = false;
 
   @ViewChild( 'varName' )
   someElement: StudentTableComponent | null = null;
@@ -61,10 +58,18 @@ export class ManageStudentsComponent implements OnInit {
   }
 
 
-  ngAfterViewInit() {
 
-    
- }
+ get selectedStudent() {
+  return this.selectedStudentId
+    ? this.dataSource.find(s => s.id === this.selectedStudentId)
+    : null;
+}
+
+onStudentChanged(id:string| undefined, data:StudentDTO) {
+  this.dataSource = this.dataSource.map(student =>
+    student.id === id ? { ...student, ...data } : student
+  );
+}
  
 
 

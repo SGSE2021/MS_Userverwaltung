@@ -1,14 +1,14 @@
 <pre>{{student | json}}</pre>
-<form *ngIf="student !== null" class="detail-form" [formGroup]="studentForm">
+<form class="detail-form" [formGroup]="studentForm">
+
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Grad</mat-label>
-      <input matInput formControlName="title" [(ngModel)]="student.title">
+      <input matInput formControlName="title">
     </mat-form-field>
     
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Geschlecht</mat-label>
-      <mat-select formControlName="gender" [(ngModel)]="student.gender" >
-        
+      <mat-select formControlName="gender">
         <mat-option [value]="gender.MALE">männlich</mat-option>
         <mat-option [value]="gender.FEMALE" >weiblich</mat-option>
         <mat-option [value]="gender.DIVERSE" >divers</mat-option>
@@ -16,76 +16,55 @@
     </mat-form-field>
 
 
-      
-
-    <mat-form-field *ngIf="(student&& student.birthdate!=null)" appearance="fill">
+    <mat-form-field appearance="fill">
       <mat-label>Geburtsdatum</mat-label>
     <!-- #docregion toggle -->
-      <input  [matDatepicker]="picker" [(ngModel)]="student.birthdate" matInput formControlName="birthdate">
+      <input  [matDatepicker]="picker"  matInput formControlName="birthdate">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     <!-- #enddocregion toggle -->
     </mat-form-field>
 
-  
-
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label >Vorname</mat-label>
-      <input *ngIf="(student&& student.firstname!=null)" [(ngModel)]="student.firstname" matInput formControlName="firstname">
-      <input *ngIf="!(student&& student.firstname!=null)"  matInput formControlName="firstname">
+      <input  matInput formControlName="firstname">
     </mat-form-field>
+
     <mat-form-field class="example-full-width" appearance="fill" >
       <mat-label>Nachname</mat-label>
-      <input *ngIf="(student&& student.lastname!=null)" [(ngModel)]="student.lastname" matInput formControlName="lastname">
-      <input *ngIf="!(student&& student.lastname!=null)"  matInput formControlName="lastname">
+      <input matInput formControlName="lastname">
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill" >
       <mat-label>Matrikelnummer</mat-label>
-      <input *ngIf="(student&& student.matriculationNumber!=null)" [(ngModel)]="student.matriculationNumber" matInput formControlName="matriculationNumber">
-      <input *ngIf="!(student&& student.matriculationNumber!=null)"  matInput formControlName="matriculationNumber">
+      <input  matInput formControlName="matriculationNumber">
     </mat-form-field>
-    <mat-form-field class="example-full-width" appearance="fill" >
-
-      <mat-label>Fachbereich</mat-label>
-      <input *ngIf="(student&& student.course&& student.course.department)" [(ngModel)]="student.course.department.name" matInput formControlName="department">
-      <input *ngIf="!(student&& student.course&& student.course.department)"  matInput formControlName="department">
-    </mat-form-field> 
 
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Geschlecht</mat-label>
-      <mat-select *ngIf="student.course" formControlName="department"  >     
+      <mat-label>Fachbereich</mat-label>
+      <mat-select formControlName="department"  >     
         <mat-option *ngFor= "let dep of departmentPool" [value]="dep.id">{{dep.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
-
-
     <mat-form-field class="example-full-width" appearance="fill" >
       <mat-label>Studiengang</mat-label>
-      <input *ngIf="(student&& student.course!=null)" [(ngModel)]="student.course.name" matInput formControlName="course">
-      <input *ngIf="!(student&& student.course!=null)"  matInput formControlName="course">
+      <input matInput formControlName="course">
     
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Abschluss</mat-label>
-      <input *ngIf="(student&& student.course)" [(ngModel)]="student.course.degree" matInput formControlName="studyCourseDegree">
-      <input *ngIf="!(student&& student.course)"  matInput formControlName="studyCourseDegree">
-    
+      <input  matInput formControlName="studyCourseDegree">
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill" >
       <mat-label>Telefon</mat-label>
-      <input *ngIf="(student&& student.phone!=null)" [(ngModel)]="student.phone" matInput formControlName="phone">
-      <input *ngIf="!(student&& student.phone!=null)"  matInput formControlName="phone">
+      <input matInput formControlName="phone">
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill" >
       <mat-label>E-Mail-Adresse</mat-label>
-      <input *ngIf="(student&& student.mail!=null)" [(ngModel)]="student.mail" matInput formControlName="mail">
-      <input *ngIf="!(student&& student.mail!=null)"  matInput formControlName="mail">
+      <input  matInput formControlName="mail">
     </mat-form-field>
-
-
   </form>

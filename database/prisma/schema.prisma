@@ -14,7 +14,7 @@ generator client {
 
 model StudyCourse {
   id        Int      @default(autoincrement()) @id
-  name      String   @unique
+  name      String   
   degree    String
   department Department @relation(fields: [departmentId],references: [id])
   departmentId Int @unique

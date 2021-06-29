@@ -1,21 +1,25 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Gender } from '@common/dto/gender.enum';
 import { StudentDTO } from '@common/dto/student.dto';
 import { DepartmentPoolDTO } from '@common/dto/department-pool.dto';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-student-table',
   templateUrl: './student-table.component.html',
   styleUrls: ['./student-table.component.css']
 })
-export class StudentTableComponent implements OnInit {
+export class StudentTableComponent implements OnInit, OnChanges {
   @Input() 
-  student:StudentDTO | null =null;
+  student:StudentDTO | null | undefined =null;
   @Input()
   departmentPool:DepartmentPoolDTO[] | null= null;
-  pageLoaded = false;
+  @Output()
+  studentChanged = new EventEmitter<StudentDTO>();
+
   gender  = JSON.parse(JSON.stringify(Gender));
+
   public studentForm = new FormGroup({
     title: new FormControl('',[]),
     gender: new FormControl('',[Validators.required]),
@@ -31,12 +35,21 @@ export class StudentTableComponent implements OnInit {
   });
   constructor() { }
 
+
+
   ngOnInit(): void {
-    this.studentForm.statusChanges.subscribe((status)=>{
-      console.log(status)
+    this.studentForm.valueChanges.subscribe((student)=>{
+      if(this.student){
+      this.studentChanged.emit(student);
+    }
     })
   }
-
+  ngOnChanges( changes: SimpleChanges ): void {
+    if (changes && changes.student && this.student) {
+        this.studentForm.patchValue(this.student);
+    }
+  }
+ 
 
 
 }

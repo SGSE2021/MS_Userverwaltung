@@ -58,18 +58,17 @@
     </ng-container>
     
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr 
-    mat-row *matRowDef="let row; columns: displayedColumns"
-    [class.demo-row-is-clicked]="clickedRow == row"
-    (click) = "clickedRow= row;"
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"
+    [class.demo-row-is-clicked]="selectedStudentId === row.id"
+    (click) = "selectedStudentId = row.id;"
     ></tr>
   </table>
 
   
- <app-student-table #table [departmentPool]="departmentPool" [student]="clickedRow" ></app-student-table>
+ <app-student-table #table [departmentPool]="departmentPool" [student]="selectedStudent" (studentChanged)= "onStudentChanged(selectedStudent?.id, $event)" ></app-student-table>
+  <pre> STD {{selectedStudent | json}}</pre>
   
-  
-  <div *ngIf="clickedRow" id="footer">
+  <div id="footer">
     <button [disabled]= "table?.studentForm?.invalid" mat-raised-button  color="primary">Änderungen speichern</button>
     <button mat-raised-button>Studierenden entfernen</button>
   </div>

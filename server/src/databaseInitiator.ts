@@ -240,7 +240,8 @@ async function createLecturer(mail:string,
       gender:string,
       departmentId:number){
     const fbProfInfMaster1 = await firebaseAdmin.auth().createUser({
-        email:mail              
+        email:mail,
+        password:"123456"              
     });
     return await prisma.lecturer.create({
         data:{
@@ -284,7 +285,8 @@ async function createStudent(mail:string,
 
 
    const fbStudent = await firebaseAdmin.auth().createUser({
-       email:mail              
+       email:mail,
+       password:"123456"                            
    });
 
    return await prisma.student.create({
@@ -316,7 +318,8 @@ async function createAdministrative(mail:string,
      gender:string,
      courseId:number){
    const fbAdministrative = await firebaseAdmin.auth().createUser({
-       email:mail              
+       email:mail,
+       password:"123456"                            
    });
    return await prisma.administrative.create({
        data:{
