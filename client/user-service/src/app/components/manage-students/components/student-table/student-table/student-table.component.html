@@ -1,5 +1,7 @@
-<pre>{{this.student| json}}</pre>
-<pre>{{studentForm.value | json}}</pre>
+<pre>Form Course {{studentForm.value.course | json}}</pre>
+<pre>Selected Course {{selectedCourse | json}}</pre>
+<pre>SelectedDep {{selectedDepId| json}}</pre>
+<pre>currentCourseList {{currentCourseList | json}}</pre>
 <form *ngIf ="this.student" class="detail-form" [formGroup]="studentForm">
 
     <mat-form-field class="example-full-width" appearance="fill">
@@ -43,7 +45,7 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Fachbereich</mat-label>
-        <mat-select  [(value)]="selectedDep" #selectDepartment  >     
+        <mat-select  (valueChange)  ="handleValueChange($event); selectCourse.value='sad'" [(value)]= "selectedDepId" #selectDepartment  >     
         <mat-option *ngFor= "let dep of departmentPool" [value]="dep.id">{{dep.name}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -52,8 +54,8 @@
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Studiengang</mat-label>
       <!-- <mat-select formControlName="department"  >      -->
-        <mat-select #selectCourse >     
-          <mat-option *ngFor= "let course of getCourses(this.student.course?.department!.id)" [value]="course.id">{{course.name}} {{course.degree}}</mat-option>
+        <mat-select (valueChange)  ="handleStudyCourseChange($event)"  [value]="selectedCourse" #selectCourse >     
+          <mat-option *ngFor= "let course of currentCourseList" [value]="course.id">{{course.name}} {{course.degree}}</mat-option>
       </mat-select>
     </mat-form-field>
 
