@@ -17,7 +17,7 @@ model StudyCourse {
   name      String   
   degree    String
   department Department @relation(fields: [departmentId],references: [id])
-  departmentId Int @unique
+  departmentId Int
   students Student[]
 }
 

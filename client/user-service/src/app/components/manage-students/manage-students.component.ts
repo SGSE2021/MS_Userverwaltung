@@ -18,14 +18,16 @@ import { DepartmentPoolDTO } from '@common/dto/department-pool.dto';
   templateUrl: './manage-students.component.html',
   styleUrls: ['./manage-students.component.css'],
 })
+
+
+
 export class ManageStudentsComponent implements OnInit {
   displayedColumns: string[] = ['uid', 'title','lastname','firstname','matriculationNumber','course','degree','department'];
   dataSource : StudentDTO[] = [];
   selectedStudentId: string | null = null;
   departmentPool: DepartmentPoolDTO[]=[];
 
-  @ViewChild( 'varName' )
-  someElement: StudentTableComponent | null = null;
+
 
 
   constructor(private httpClient:HttpClient, public dialog:MatDialog) { }
@@ -35,13 +37,13 @@ export class ManageStudentsComponent implements OnInit {
     this.dataSource = students;
     console.log(students);
     });
-
     const departmentObserver = await this.httpClient.get<DepartmentPoolDTO[]>("http://localhost:8080/departments").subscribe(departments=>{
     this.departmentPool = departments;
+    console.log(this.departmentPool);
     });
 
     //STUDENT_DATA = response; 
-    console.log(observer);
+
 
 
   }
