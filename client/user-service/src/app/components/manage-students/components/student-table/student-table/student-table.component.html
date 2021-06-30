@@ -1,5 +1,6 @@
+<pre>{{this.student| json}}</pre>
 <pre>{{studentForm.value | json}}</pre>
-<form class="detail-form" [formGroup]="studentForm">
+<form *ngIf ="this.student" class="detail-form" [formGroup]="studentForm">
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Grad</mat-label>
@@ -27,7 +28,7 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label >Vorname</mat-label>
-      <input  matInput formControlName="firstname">
+      <input formControlName="firstname"  matInput >
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill" >
@@ -42,20 +43,18 @@
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Fachbereich</mat-label>
-      <mat-select formControlName="department"  >     
+        <mat-select  [(value)]="selectedDep" #selectDepartment  >     
         <mat-option *ngFor= "let dep of departmentPool" [value]="dep.id">{{dep.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" appearance="fill" >
-      <mat-label>Studiengang</mat-label>
-      <input matInput formControlName="course">
-    
-    </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Abschluss</mat-label>
-      <input  matInput formControlName="studyCourseDegree">
+      <mat-label>Studiengang</mat-label>
+      <!-- <mat-select formControlName="department"  >      -->
+        <mat-select #selectCourse >     
+          <mat-option *ngFor= "let course of getCourses(this.student.course?.department!.id)" [value]="course.id">{{course.name}} {{course.degree}}</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill" >
