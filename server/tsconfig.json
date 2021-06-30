@@ -11,7 +11,7 @@
         "strict": true,
         "lib":["ESNext"],
         "paths": {
-          "@common/*":["../common/*"]
+          // "@common/*":["../common/*"]
         }
     },
     "files": [

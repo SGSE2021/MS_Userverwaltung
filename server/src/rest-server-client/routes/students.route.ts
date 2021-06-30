@@ -11,10 +11,10 @@ class StudentsRoute {
 
     private initializeRoutes() {
         this.router.get     ("/students",       this.studentsController.getAllStudents);
-        this.router.get     ("/students/:id",   this.studentsController.getAllStudents);
+        this.router.get     ("/students/:id",   this.studentsController.getStudentById);
         this.router.post    ("/students",       this.studentsController.addStudent);
-        this.router.delete  ("/students",       this.studentsController.getAllStudents);
-        this.router.put     ("/students/:id",   this.studentsController.getAllStudents);
+        this.router.delete  ("/students/:id",       this.studentsController.deleteStudentById);
+        this.router.put     ("/students/:id",   this.studentsController.updateStudent);
     }
 }
 

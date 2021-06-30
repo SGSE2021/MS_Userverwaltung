@@ -34,7 +34,7 @@
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon [routerLink]="['/settings']" >account_circle</mat-icon>
     </button>
-    <label>{{this.authService.currentToken.value?.substring(0,8)}}</label>
+    <label>{{this.authService.displayName.getValue()}}</label>
   </div>
   </mat-toolbar>
   <!-- <ngx-auth-firebaseui-login 

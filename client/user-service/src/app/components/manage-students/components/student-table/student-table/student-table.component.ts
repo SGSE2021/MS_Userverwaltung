@@ -29,7 +29,6 @@ export class StudentTableComponent implements OnInit, OnChanges {
     matriculationNumber: new FormControl('',[Validators.required]),
     department: new FormControl('',Validators.required),
     course: new FormControl('',Validators.required),
-    studyCourseDegree: new FormControl('',Validators.required),
     phone: new FormControl('',[Validators.required]),
     mail: new FormControl('',[Validators.required,Validators.email])
   });

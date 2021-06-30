@@ -65,8 +65,8 @@
   </table>
 
   
- <app-student-table #table [departmentPool]="departmentPool" [student]="selectedStudent" (studentChanged)= "onStudentChanged(selectedStudent?.id, $event)" ></app-student-table>
-  <pre> STD {{selectedStudent | json}}</pre>
+ <app-student-table #table [departmentPool]="departmentPool" [student]="selectedStudent" ></app-student-table>
+
   
   <div id="footer">
     <button [disabled]= "table?.studentForm?.invalid" mat-raised-button  color="primary">Änderungen speichern</button>

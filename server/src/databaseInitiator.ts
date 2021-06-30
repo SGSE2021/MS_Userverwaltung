@@ -220,7 +220,8 @@ async function test(){
     console.log("Finished db init");
 }
 
-test();
+//TODO
+//test();
 
 async function createDepartments(){
     const department = await prisma.department.create({
@@ -241,7 +242,8 @@ async function createLecturer(mail:string,
       departmentId:number){
     const fbProfInfMaster1 = await firebaseAdmin.auth().createUser({
         email:mail,
-        password:"123456"              
+        password:"123456",
+        displayName:firstname+" "+lastname              
     });
     return await prisma.lecturer.create({
         data:{
@@ -286,7 +288,8 @@ async function createStudent(mail:string,
 
    const fbStudent = await firebaseAdmin.auth().createUser({
        email:mail,
-       password:"123456"                            
+       password:"123456",
+       displayName:firstname+" "+lastname                                
    });
 
    return await prisma.student.create({
@@ -319,7 +322,8 @@ async function createAdministrative(mail:string,
      courseId:number){
    const fbAdministrative = await firebaseAdmin.auth().createUser({
        email:mail,
-       password:"123456"                            
+       password:"123456",
+       displayName:firstname+" "+lastname                                
    });
    return await prisma.administrative.create({
        data:{

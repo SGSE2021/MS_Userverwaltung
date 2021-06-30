@@ -61,7 +61,7 @@ export class ManageStudentsComponent implements OnInit {
 
  get selectedStudent() {
   return this.selectedStudentId
-    ? this.dataSource.find(s => s.id === this.selectedStudentId)
+    ? this.dataSource.find(student => student.id === this.selectedStudentId)
     : null;
 }
 

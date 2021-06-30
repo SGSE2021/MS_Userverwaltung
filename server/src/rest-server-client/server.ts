@@ -2,6 +2,7 @@ import express from 'express';
 import { errorMiddleware } from '../common/middlewares/error.middleware';
 import Route from "../common/interfaces/route.interface";
 import cors from "cors";
+import bodyParser from "body-parser"
 
 
 export class RestServerClient {
@@ -12,6 +13,8 @@ export class RestServerClient {
          this.app.use(cors({credentials: true, origin: function (origin:any, callback:any) {
               callback(null, true);
           }}));
+          this.app.use(bodyParser.json());
+          this.app.use(bodyParser.urlencoded({ extended: true }));
         this.mountRoutes(routes);
 
         this.app.use(errorMiddleware);

@@ -3,12 +3,14 @@ import { Router } from "@angular/router";
 import {switchMap} from "rxjs/operators"; 
 import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject, Observable, of} from 'rxjs';
+import { report } from 'process';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   public currentToken: BehaviorSubject<string | null>;
+  public displayName: BehaviorSubject<string | null>;
   private TOKEN_IDENTIFIER="token";
   // public user:Observable<any>
 
@@ -17,6 +19,8 @@ export class AuthService {
     private router: Router
     ) { 
     this.currentToken= new BehaviorSubject<string| null>(localStorage.getItem(this.TOKEN_IDENTIFIER));
+
+    this.displayName= new BehaviorSubject<string| null>(localStorage.getItem("display-name"));
 
     // this.user = this.angularFireAuth.authState.pipe(
     //   switchMap( user =>{
@@ -35,7 +39,14 @@ export class AuthService {
     const jwtToken = await response.user?.getIdToken(true);
     if(jwtToken){
       localStorage.setItem(this.TOKEN_IDENTIFIER,jwtToken);
+
       this.currentToken.next(jwtToken);
+      if(response.user?.displayName){
+      console.log("New displayname "+response.user.displayName);
+      this.displayName.next(response.user?.displayName);
+      localStorage.setItem("display-name",response.user.displayName);
+  
+    }
     }
     return response.user?.uid;
   }
@@ -44,6 +55,8 @@ export class AuthService {
     console.log("Logout:logged out");
     localStorage.removeItem(this.TOKEN_IDENTIFIER);
     this.currentToken.next(null);
+    localStorage.removeItem("display-name");
+    this.displayName.next("Annonymous");
     await this.angularFireAuth.signOut();
     console.log("Signed out from angualFire");
     console.log("Navigate to /login");
