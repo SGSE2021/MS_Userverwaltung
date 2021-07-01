@@ -9,6 +9,7 @@ import { DataService } from 'src/app/services/data/data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -29,7 +30,10 @@ export class ManageStudentsComponent implements OnInit {
 
 
 
-  constructor(public dialog:MatDialog,public studentService:StudentsService,private dataService: DataService) { }
+  constructor(public dialog:MatDialog,public studentService:StudentsService,private dataService: DataService,
+    private titleService : Title ) { 
+      this.titleService.setTitle("Studierende");
+    }
   ngAfterViewInit() {
     if(this.paginator)
     this.dataSource.paginator = this.paginator;

@@ -1,0 +1,65 @@
+table {
+  width: 100%;
+}
+
+#btnAddStudent {
+  margin-bottom: 1.5em;
+  min-width: 200px;
+}
+
+#footer {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2em;
+}
+
+#header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  grid-gap: 2em;
+}
+
+#container {
+  width: 80%;
+  margin: 2em auto 2em auto;
+  display: grid;
+  place-items: center;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+mat-paginator {
+  width: 100%;
+}
+
+#tableContainer {
+  width: 100%;
+  margin-top: 10px;
+  height: 100%;
+  overflow: auto;
+}
+
+#studierendenLabel {
+  float: left;
+  font-size: 2em;
+  text-decoration: underline;
+}
+
+#labelContainer {
+  margin-top: 16px;
+  width: 100%;
+}

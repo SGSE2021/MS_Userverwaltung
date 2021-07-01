@@ -16,11 +16,12 @@
     <a mat-list-item color="primary" (click)="opened=false">Termine</a>
     <a mat-list-item color="primary"(click)="opened=false" >Prüfungen</a>
     <a mat-list-item color="primary"(click)="opened=false" [routerLink]="['/students']" >Studierende</a>
-    <a mat-list-item color="primary"(click)="opened=false" >Lehrende</a>
+    <a mat-list-item color="primary"(click)="opened=false" [routerLink]="['/lecturers']">Lehrende</a>
     <a mat-list-item color="primary"(click)="opened=false">Raumbuchung</a>
-    
+
+    <a *ngIf= "this.authService.currentToken.value == null" mat-list-item color="primary" [routerLink]="['/login']">Einloggen</a>
     <a *ngIf= "(this.authService.currentToken.value !== null)" mat-list-item color="primary" (click)="authService.logout()">Ausloggen</a>
-    <a *ngIf= "(this.authService.currentToken.value === null)" mat-list-item color="primary" (routerLink]="['/login']">Einloggen</a>
+    
   </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -28,7 +29,7 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon (click)="opened =!opened" >menu</mat-icon>
     </button>
-    <span>Startseite</span>
+    <span>{{titleService.getTitle()}}</span>
     <span class="example-spacer"></span>
     <div id="userContainer">
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
@@ -46,3 +47,5 @@
 
 
   <router-outlet></router-outlet>
+{{this.authService.currentToken.value == null| json}}
+{{this.authService.displayName.getValue() | json}}

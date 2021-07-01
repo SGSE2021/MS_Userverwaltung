@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 
@@ -19,9 +20,13 @@ export class LoginComponent implements OnInit {
   constructor(
     public  authService:AuthService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private titleService : Title 
     ) { 
+      this.titleService.setTitle("Login");
     }
+
+
 
   ngOnInit(): void {
     if (this.authService.currentToken.value) {

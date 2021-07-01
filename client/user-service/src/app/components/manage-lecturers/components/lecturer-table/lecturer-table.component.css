@@ -1,0 +1,15 @@
+.detail-form {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .detail-form>* {
+    margin: 16px;
+  }
+  
+  #checkboxContainer {
+    display: flex;
+    align-items: center;
+    padding-bottom: 1.2em;
+  }

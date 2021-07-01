@@ -20,8 +20,8 @@ import { CommonModule } from '@angular/common';
 import { CreateStudentComponent } from './components/manage-students/components/create-student/create-student.component';
 import { StudentTableComponent } from './components/manage-students/components/student-table/student-table/student-table.component';
 import { ManageLecturersComponent } from './components/manage-lecturers/manage-lecturers.component';
-import { CreateLecturerComponent } from './components/manage-lecturers/components/create-lecturer/create-lecturer/create-lecturer.component';
-import { LecturerTableComponent } from './components/manage-lecturers/components/lecturer-table/lecturer-table/lecturer-table.component';  
+import { CreateLecturerComponent } from './components/manage-lecturers/components/create-lecturer/create-lecturer.component';
+import { LecturerTableComponent } from './components/manage-lecturers/components/lecturer-table/lecturer-table.component';  
 
 const config = {    
   apiKey: "AIzaSyA8SJNujTKurGNLA15PQqPjz0Pi2rpeEAw",
