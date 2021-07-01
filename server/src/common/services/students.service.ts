@@ -9,7 +9,7 @@ import {adminApp as firebaseAdmin,app as firebase} from "../../databaseInitiator
 import { StudentDTO } from "../../../../common/dto/student.dto";
 
 
-class StudentsService {
+export class StudentsService {
     private studentMapper = new StudentMapper();
     constructor(){
 
@@ -141,4 +141,3 @@ class StudentsService {
 
    
 }
-export default StudentsService;

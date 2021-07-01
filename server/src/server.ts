@@ -1,11 +1,11 @@
 import express from 'express';
-import { errorMiddleware } from '../common/middlewares/error.middleware';
-import Route from "../common/interfaces/route.interface";
+import { errorMiddleware } from './common/middlewares/error.middleware';
+import Route from "./common/interfaces/route.interface";
 import cors from "cors";
 import bodyParser from "body-parser"
 
 
-export class RestServerClient {
+export class RestServer {
     private app: express.Application;
     constructor(routes:Route[]) {
 

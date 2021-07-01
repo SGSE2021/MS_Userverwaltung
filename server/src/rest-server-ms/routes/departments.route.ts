@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import { DepartmentsController } from '../../common/controllers/departments-controller';
+import { Router} from 'express';
+import {DepartmentsController } from '../../common/controllers/departments-controller';
 
 export class DepartmentsRoute {
     public departmentControllers = new DepartmentsController();
@@ -10,6 +10,6 @@ export class DepartmentsRoute {
     }
 
     private initializeRoutes() {
-        this.router.get( "/departments", this.departmentControllers.getAllDepartments );
+        this.router.get     ("/departments",       this.departmentControllers.getAllDepartments);
     }
 }

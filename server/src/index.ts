@@ -1,28 +1,41 @@
 import { exit } from "process";
 import prisma from "./database"
-import StudentsRoute from "./rest-server-client/routes/students.route";
-import DepartmentsRoute from "./rest-server-client/routes/departments.route";
-import { RestServerClient } from "./rest-server-client/server";
+import { StudentsRoute as ExternalStudensRoute } from "./rest-server-client/routes/students.route";
+import { DepartmentsRoute as ExternalDepartmentsRoute } from "./rest-server-client/routes/departments.route";
+import { LecturersRoute as ExternalLecturersRoute } from "./rest-server-client/routes/lecturers.route";
 
-import  "./databaseInitiator";
+import { StudentsRoute as InternalStudensRoute } from "./rest-server-ms/routes/students.route";
+import { DepartmentsRoute as InternalDepartmentsRoute } from "./rest-server-ms/routes/departments.route";
+import { LecturersRoute as InternalLecturerRoute} from "./rest-server-ms/routes/lecturers.route";
+import { RestServer } from "./server";
 
-
-
-
-const port = 8080; // default port to listen
-const restServerClient = new RestServerClient([
-    new StudentsRoute(),
-    new DepartmentsRoute()
-]);
+import "./databaseInitiator";
 
 
-async function main(){
+
+
+const portClient = 8080;
+const restServerClient = new RestServer( [
+    new ExternalStudensRoute(),
+    new ExternalDepartmentsRoute()
+] );
+
+const portMs = 8181;
+const restServerMs = new RestServer( [
+    new InternalStudensRoute(),
+    new InternalDepartmentsRoute(),
+    new InternalLecturerRoute()
+] );
+
+
+async function main() {
     await prisma.$connect();
-    restServerClient.start(port);
+    restServerClient.start( portClient );
+    restServerMs.start( portMs );
 }
 
-main().catch((e)=>{
-    console.log(e);
+main().catch( ( e ) => {
+    console.log( e );
     prisma.$disconnect();
-    exit(1);
-});
+    exit( 1 );
+} );

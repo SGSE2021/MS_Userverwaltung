@@ -1,7 +1,7 @@
 import { AddStudentDTO } from '../../../../common/dto/addstudent.dto';
 import { NextFunction, Request, Response } from 'express';
 import { HttpException } from '../../common/exceptionTypes/httpException';
-import StudentsService from '../services/students.service';
+import {StudentsService} from '../services/students.service';
 import {Student,Prisma, Gender} from "../../../../database/node_modules/prisma/prisma-client"
 
 class StudentsController {

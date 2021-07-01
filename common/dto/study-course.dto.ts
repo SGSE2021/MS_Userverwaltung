@@ -1,4 +1,4 @@
-import {DepartmentDTO} from "@common/dto/department.dto"
+import {DepartmentDTO} from "../../common/dto/department.dto"
 export interface StudyCourseDTO {
     id:number,
     name:string,
