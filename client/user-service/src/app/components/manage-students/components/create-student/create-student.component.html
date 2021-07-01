@@ -1,5 +1,12 @@
-<app-student-table [student]=newStudent #table></app-student-table>
-<div  id="footer">
-    <button id="btnAddStudent" [disabled]=table?.studentForm?.invalid mat-raised-button  color="primary">Studierenden hinzufügen</button>
-    <button id="btnCancel" mat-raised-button (click) ="onNoClick()">Abbrechen</button>
+<div id="container">
+  <title mat-dialog-title>Studierenden hinzufügen</title>
+  <div id="labelContainer">
+    <mat-label id="studierendenLabel">Studierendendaten</mat-label>
   </div>
+  <app-student-table [departmentPool]="departmentPool" [student]=newStudent #table></app-student-table>
+  <div id="footer">
+    <button (click)="createStudent()" id="btnAddStudent" [disabled]="table?.invalid" mat-raised-button
+      color="primary">Studierenden hinzufügen</button>
+    <button id="btnCancel" mat-raised-button (click)="onNoClick()">Abbrechen</button>
+  </div>
+</div>

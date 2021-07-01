@@ -12,3 +12,20 @@
 #btnCancel{
     margin-right: 16px;
 }
+
+#studierendenLabel{
+    float: left;
+    font-size:2em;
+    text-decoration: underline;
+    margin-left: 16px;
+  }
+  #labelContainer{
+    margin-top:16px;
+    width: 100%;
+    margin-left: 16px;
+  }
+  #container{
+
+    display: grid;
+    place-items: center;
+  }

@@ -20,7 +20,7 @@
     <a mat-list-item color="primary"(click)="opened=false">Raumbuchung</a>
     
     <a *ngIf= "(this.authService.currentToken.value !== null)" mat-list-item color="primary" (click)="authService.logout()">Ausloggen</a>
-    <a *ngIf= "(this.authService.currentToken.value === null)" mat-list-item color="primary" (click)="authService.logout()">Einloggen</a>
+    <a *ngIf= "(this.authService.currentToken.value === null)" mat-list-item color="primary" (routerLink]="['/login']">Einloggen</a>
   </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

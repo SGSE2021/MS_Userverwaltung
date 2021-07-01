@@ -1,16 +1,14 @@
-import { HttpClient, JsonpClientBackend } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {StudentPreviewDTO} from "@common/dto/student-preview.dto"
 import {StudentDTO} from "@common/dto/student.dto"
-import {Gender} from "@common/dto/gender.enum"
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import {Student} from "../../../../../../database/node_modules/prisma/prisma-client"
-import { formatCurrency } from '@angular/common';
 import { StudentTableComponent } from './components/student-table/student-table/student-table.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateStudentComponent } from './components/create-student/create-student.component';
-import { DepartmentDTO } from '@common/dto/department.dto';
 import { DepartmentPoolDTO } from '@common/dto/department-pool.dto';
+import { StudentsService } from 'src/app/services/students/students.service';
+import { DataService } from 'src/app/services/data/data.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 
 @Component({
@@ -19,60 +17,99 @@ import { DepartmentPoolDTO } from '@common/dto/department-pool.dto';
   styleUrls: ['./manage-students.component.css'],
 })
 
-
-
 export class ManageStudentsComponent implements OnInit {
   displayedColumns: string[] = ['uid', 'title','lastname','firstname','matriculationNumber','course','degree','department'];
-  dataSource : StudentDTO[] = [];
+  dataSource = new MatTableDataSource<StudentDTO>();
   selectedStudentId: string | null = null;
   departmentPool: DepartmentPoolDTO[]=[];
 
+  @ViewChild('table') studentForm?: StudentTableComponent
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
+  @ViewChild(MatSort) sort?: MatSort;
 
 
 
-  constructor(private httpClient:HttpClient, public dialog:MatDialog) { }
-
-  async ngOnInit(): Promise<void> {
-    const observer = await this.httpClient.get<StudentDTO[]>("http://localhost:8080/students").subscribe(students=>{
-    this.dataSource = students;
-    console.log(students);
+  constructor(public dialog:MatDialog,public studentService:StudentsService,private dataService: DataService) { }
+  ngAfterViewInit() {
+    if(this.paginator)
+    this.dataSource.paginator = this.paginator;
+    if(this.sort)
+    this.dataSource.sort = this.sort;
+  }
+  ngOnInit(){
+    this.studentService.getAllStudents().subscribe(students=>{
+    this.dataSource.data = students;
     });
-    const departmentObserver = await this.httpClient.get<DepartmentPoolDTO[]>("http://localhost:8080/departments").subscribe(departments=>{
+
+    this.dataService.getDepartmentPool().subscribe(departments=>{
     this.departmentPool = departments;
-    console.log(this.departmentPool);
     });
 
-    //STUDENT_DATA = response; 
-
-
-
+    this.dataSource.sortingDataAccessor = (item:any, property) => {
+      switch(property) {
+        
+        case 'degree': return item.course?.degree;
+        case 'course': return item.course?.name;
+        case 'department': return item.course?.department.name;
+        default: return "item[property]";
+      }
+  };
+  if(this.sort)
+  this.dataSource.sort = this.sort;
   }
 
-  public log(l:unknown){
-    console.log(l);
-  }
   openAddStudentDialog(): void {
     const dialogRef = this.dialog.open(CreateStudentComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      sub.unsubscribe();
     });
+
+    const sub = dialogRef.componentInstance.newStudentEvent.subscribe((student)=>{
+      alert(student.firstname);
+      this.dataSource.data.push(student);
+    })
   }
 
 
 
  get selectedStudent() {
   return this.selectedStudentId
-    ? this.dataSource.find(student => student.id === this.selectedStudentId)
+    ? this.dataSource.data.find(student => student.id === this.selectedStudentId)
     : null;
 }
 
 onStudentChanged(id:string| undefined, data:StudentDTO) {
-  this.dataSource = this.dataSource.map(student =>
+  this.dataSource.data = this.dataSource.data.map(student =>
     student.id === id ? { ...student, ...data } : student
   );
 }
- 
 
+public submitStudentChanges(){
+  if(this.selectedStudentId == null) return;
+  this.studentService.updateStudent(this.selectedStudentId,this.studentForm?.studentForm.value).subscribe((student)=>{
+    if(this.selectedStudentId == null) return;
+    this.studentService.getAllStudents().subscribe((students)=>{
+      this.dataSource.data = students;
+    })
+    //this.onStudentChanged(this.selectedStudentId,student);
+  });
+  
+}
+
+
+public deleteStudent(){
+  if(this.selectedStudentId == null) return;
+  const IdToDelete = this.selectedStudentId;
+  this.studentService.deleteStudent(this.selectedStudentId).subscribe((student)=>{
+   
+    this.dataSource.data =  this.dataSource.data.filter(item => item.id !== IdToDelete);
+  });
+}
+
+
+public doFilter = (event: any) => {
+  this.dataSource.filter = event.value.trim().toLocaleLowerCase();
+}
 
 }

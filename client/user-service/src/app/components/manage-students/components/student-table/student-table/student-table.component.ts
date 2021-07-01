@@ -32,7 +32,9 @@ export class StudentTableComponent implements OnInit, OnChanges {
       id: new FormControl('',Validators.required)
     }),
     phone: new FormControl('',[]),
-    mail: new FormControl('',[Validators.required,Validators.email])
+    mail: new FormControl('',[Validators.required,Validators.email]),
+    semester: new FormControl('',[Validators.required]),
+    active: new FormControl('',[Validators.required])
   });
 
   //selectedDep: number=-1;
@@ -63,9 +65,11 @@ export class StudentTableComponent implements OnInit, OnChanges {
         const {course,...patchStudent} = this.student;
         //this.studentForm.patchValue(patchStudent);
          this.studentForm.patchValue(this.student);
-         this.selectedDep.next(this.student.course!.department.id);
-         this.selectedCourse = this.student.course!.id;
+         if(this.student.course){
+         this.selectedDep.next(this.student.course.department.id);
+         this.selectedCourse = this.student.course.id;
          this.currentCourseList = this.getCourses(this.selectedDep.getValue());
+        }
         // this.selectedDep=this.student.course!.department.id;
         // this.selectedCourse = this.student.course!.id;
 
