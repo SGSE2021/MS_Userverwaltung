@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { StudentDTO } from "@common/dto/student.dto"
+import { LecturerDTO } from "@common/dto/lecturer.dto"
 import { LecturerTableComponent } from './components/lecturer-table/lecturer-table.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLecturerComponent } from './components//create-lecturer/create-lecturer.component';
@@ -10,6 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { Title } from '@angular/platform-browser';
+import { LecturerService } from 'src/app/services/lecturers/lecturer-service.service';
 
 
 @Component( {
@@ -19,18 +20,18 @@ import { Title } from '@angular/platform-browser';
 } )
 
 export class ManageLecturersComponent implements OnInit {
-  displayedColumns: string[] = ['uid', 'title', 'lastname', 'firstname', 'matriculationNumber', 'course', 'degree', 'department'];
-  dataSource = new MatTableDataSource<StudentDTO>();
+  displayedColumns: string[] = ['uid', 'title', 'lastname', 'firstname', 'department'];
+  dataSource = new MatTableDataSource<LecturerDTO>();
   selectedStudentId: string | null = null;
   departmentPool: DepartmentPoolDTO[] = [];
 
-  @ViewChild( 'table' ) studentForm?: LecturerTableComponent
+  @ViewChild( 'table' ) lecturerForm?: LecturerTableComponent
   @ViewChild( MatPaginator ) paginator?: MatPaginator;
   @ViewChild( MatSort ) sort?: MatSort;
 
 
   constructor( public dialog: MatDialog,
-    public studentService: StudentsService,
+    public lecturerService: LecturerService,
     private dataService: DataService,
     private titleService: Title
   ) { this.titleService.setTitle( "Lehrende" ); }
@@ -41,8 +42,8 @@ export class ManageLecturersComponent implements OnInit {
       this.dataSource.sort = this.sort;
   }
   ngOnInit() {
-    this.studentService.getAllStudents().subscribe( students => {
-      this.dataSource.data = students;
+    this.lecturerService.getAllLecturers().subscribe( lecturers => {
+      this.dataSource.data = lecturers;
     } );
 
     this.dataService.getDepartmentPool().subscribe( departments => {
@@ -69,7 +70,7 @@ export class ManageLecturersComponent implements OnInit {
       sub.unsubscribe();
     } );
 
-    const sub = dialogRef.componentInstance.newStudentEvent.subscribe( ( student ) => {
+    const sub = dialogRef.componentInstance.newLecturerEvent.subscribe( ( student ) => {
       alert( student.firstname );
       this.dataSource.data.push( student );
     } )
@@ -77,13 +78,13 @@ export class ManageLecturersComponent implements OnInit {
 
 
 
-  get selectedStudent() {
+  get selectedLecturer() {
     return this.selectedStudentId
       ? this.dataSource.data.find( student => student.id === this.selectedStudentId )
       : null;
   }
 
-  onStudentChanged( id: string | undefined, data: StudentDTO ) {
+  onStudentChanged( id: string | undefined, data: LecturerDTO ) {
     this.dataSource.data = this.dataSource.data.map( student =>
       student.id === id ? { ...student, ...data } : student
     );
@@ -91,9 +92,9 @@ export class ManageLecturersComponent implements OnInit {
 
   public submitStudentChanges() {
     if ( this.selectedStudentId == null ) return;
-    this.studentService.updateStudent( this.selectedStudentId, this.studentForm?.studentForm.value ).subscribe( ( student ) => {
+    this.lecturerService.updateLecturer( this.selectedStudentId, this.lecturerForm?.lecturerForm.value ).subscribe( ( student ) => {
       if ( this.selectedStudentId == null ) return;
-      this.studentService.getAllStudents().subscribe( ( students ) => {
+      this.lecturerService.getAllLecturers().subscribe( ( students ) => {
         this.dataSource.data = students;
       } )
       //this.onStudentChanged(this.selectedStudentId,student);
@@ -105,7 +106,7 @@ export class ManageLecturersComponent implements OnInit {
   public deleteStudent() {
     if ( this.selectedStudentId == null ) return;
     const IdToDelete = this.selectedStudentId;
-    this.studentService.deleteStudent( this.selectedStudentId ).subscribe( ( student ) => {
+    this.lecturerService.deleteLecturer( this.selectedStudentId ).subscribe( ( student ) => {
 
       this.dataSource.data = this.dataSource.data.filter( item => item.id !== IdToDelete );
     } );

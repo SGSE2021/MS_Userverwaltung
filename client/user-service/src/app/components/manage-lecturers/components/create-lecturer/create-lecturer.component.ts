@@ -8,6 +8,8 @@ import { DataService } from 'src/app/services/data/data.service';
 import { StudentsService } from 'src/app/services/students/students.service';
 import { EventEmitter } from '@angular/core';
 import { LecturerTableComponent } from '../lecturer-table/lecturer-table.component';
+import { LecturerService } from 'src/app/services/lecturers/lecturer-service.service';
+import { LecturerDTO } from '@common/dto/lecturer.dto';
 
 @Component({
   selector: 'create-student',
@@ -16,31 +18,29 @@ import { LecturerTableComponent } from '../lecturer-table/lecturer-table.compone
 })
 export class CreateLecturerComponent implements OnInit {
 
-  public newStudent:StudentDTO|null={
+  public newLecturer:LecturerDTO|null={
     active:true,
     birthdate:new Date(),
     firstname:"",
     gender:Gender.MALE,
     lastname:"",
     mail:"",
-    matriculationNumber:"",
     phone:"",
-    course:null,
     title:"",
-    semester:1,
-    id:""
+    id:"",
+    department:null
   };
 
   departmentPool :DepartmentPoolDTO[] | null = [];
 
   @Output()
-  newStudentEvent:EventEmitter<StudentDTO> = new EventEmitter();
-  @ViewChild('table') studentForm?: LecturerTableComponent
+  newLecturerEvent:EventEmitter<LecturerDTO> = new EventEmitter();
+  @ViewChild('table') lecturerForm?: LecturerTableComponent
   constructor(
     public dialogRef: MatDialogRef<CreateLecturerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dataService:DataService,
-    private studentService:StudentsService
+    private lecturerService:LecturerService
   ) { }
 
   async ngOnInit() {
@@ -54,10 +54,10 @@ export class CreateLecturerComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public createStudent(){
-    if(!this. studentForm?.studentForm.value){ return; }
-    this.studentService.createStudent(this.studentForm.studentForm.value).subscribe((student)=>{
-      this.newStudentEvent.emit(student);
+  public createLecturer(){
+    if(!this. lecturerForm?.lecturerForm.value){ return; }
+    this.lecturerService.createLecturer(this.lecturerForm.lecturerForm.value).subscribe((lecturer)=>{
+      this.newLecturerEvent.emit(lecturer);
     })
   }
 }

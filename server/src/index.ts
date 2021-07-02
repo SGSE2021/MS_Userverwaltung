@@ -17,7 +17,8 @@ import "./databaseInitiator";
 const portClient = 8080;
 const restServerClient = new RestServer( [
     new ExternalStudensRoute(),
-    new ExternalDepartmentsRoute()
+    new ExternalDepartmentsRoute(),
+    new ExternalLecturersRoute()
 ] );
 
 const portMs = 8181;

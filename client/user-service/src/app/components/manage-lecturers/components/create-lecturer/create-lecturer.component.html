@@ -1,12 +1,12 @@
 <div id="container">
-    <title mat-dialog-title>Studierenden hinzufügen</title>
+    <title mat-dialog-title>Lehrenden hinzufügen</title>
     <div id="labelContainer">
-      <mat-label id="studierendenLabel">Studierendendaten</mat-label>
+      <mat-label id="studierendenLabel">Lehrendendaten</mat-label>
     </div>
-    <app-student-table [departmentPool]="departmentPool" [student]=newStudent #table></app-student-table>
+    <app-lecturer-table [departmentPool]="departmentPool" [lecturer]=newLecturer #table></app-lecturer-table>
     <div id="footer">
-      <button (click)="createStudent()" id="btnAddStudent" [disabled]="table?.invalid" mat-raised-button
-        color="primary">Studierenden hinzufügen</button>
+      <button (click)="createLecturer()" id="btnAddStudent" [disabled]="table?.invalid" mat-raised-button
+        color="primary">Lehrenden hinzufügen</button>
       <button id="btnCancel" mat-raised-button (click)="onNoClick()">Abbrechen</button>
     </div>
   </div>
