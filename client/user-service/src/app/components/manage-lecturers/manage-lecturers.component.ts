@@ -53,10 +53,8 @@ export class ManageLecturersComponent implements OnInit {
     this.dataSource.sortingDataAccessor = ( item: any, property ) => {
       switch ( property ) {
 
-        case 'degree': return item.course?.degree;
-        case 'course': return item.course?.name;
-        case 'department': return item.course?.department.name;
-        default: return "item[property]";
+        case 'department': return item.department.name;
+        default: return item[property];
       }
     };
     if ( this.sort )

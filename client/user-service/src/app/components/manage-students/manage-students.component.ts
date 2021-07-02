@@ -55,7 +55,7 @@ export class ManageStudentsComponent implements OnInit {
         case 'degree': return item.course?.degree;
         case 'course': return item.course?.name;
         case 'department': return item.course?.department.name;
-        default: return "item[property]";
+        default: return item[property];
       }
   };
   if(this.sort)
