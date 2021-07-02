@@ -19,7 +19,9 @@ export class AuthService {
     this.currentToken = new BehaviorSubject<string | null>( localStorage.getItem( this.TOKEN_IDENTIFIER ) );
 
     this.displayName = new BehaviorSubject<string | null>( localStorage.getItem( "display-name" ) );
-
+    if(this.displayName.getValue()===null){
+      this.displayName.next("Annonymous");
+    }
     // this.user = this.angularFireAuth.authState.pipe(
     //   switchMap( user =>{
     //     if(user){
