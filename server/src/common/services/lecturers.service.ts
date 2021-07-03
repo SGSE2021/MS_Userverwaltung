@@ -1,16 +1,15 @@
 //import { StudentPreviewMapper } from "@common/mapper/student-preview.mapper";
-import { AddStudentDTO } from "../../../../common/dto/addstudent.dto"
+import { AddLecturerDTO } from "../../../../common/dto/addlecturer.dto"
 import { HttpException } from "../../common/exceptionTypes/httpException";
 import {Student,Prisma, Gender} from "../../../../database/node_modules/prisma/prisma-client"
 import prisma from "../../database";
 import { StudentMapper } from "../../common/mapper/student.mapper";
 
 import {adminApp as firebaseAdmin,app as firebase} from "../../databaseInitiator"
-import { StudentDTO } from "../../../../common/dto/student.dto";
+import { LecturerDTO } from "../../../../common/dto/lecturer.dto";
 
 
 export class LecturerService {
-    private studentMapper = new StudentMapper();
     constructor(){
 
     }
@@ -43,83 +42,78 @@ export class LecturerService {
         return foundLecturer;
     }
 
-    // public async addStudent(userData: AddStudentDTO){
+    public async addLecturer(lecturerData: AddLecturerDTO){
 
-    //     const fbUser = await firebaseAdmin.auth().createUser({
-    //         email:userData.mail,
-    //         password:"123456",
-    //         displayName:userData.firstname+ " " + userData.lastname
-    //         });
+        const fbUser = await firebaseAdmin.auth().createUser({
+            email:lecturerData.mail,
+            password:"123456",
+            displayName:lecturerData.firstname+ " " + lecturerData.lastname
+            });
 
-    //     const {gender, ...rest} = userData;
-    //     const user: Prisma.StudentCreateInput = {
-    //         active:rest.active,
-    //         birthdate:rest.birthdate,
-    //         firstname:rest.firstname,
-    //         gender:this.parseGender(gender),
-    //         id:fbUser.uid,
-    //         lastname:rest.lastname,
-    //         mail:rest.mail,
-    //         matriculationNumber:rest.matriculationNumber,
-    //         semester:rest.semester,
-    //         course:{connect:{
-    //             id:rest.course.id
-    //         }}
+        const {gender, ...rest} = lecturerData;
+        const user: Prisma.LecturerCreateInput = {
+            active:rest.active,
+            birthdate:rest.birthdate,
+            firstname:rest.firstname,
+            gender:this.parseGender(gender),
+            id:fbUser.uid,
+            lastname:rest.lastname,
+            mail:rest.mail,
+            department:{connect:{
+                id:rest.department.id
+            }}
 
-    //     }
+        }
 
-    //     const newUser = await prisma.student.create({data:user});
+        const newLecturer = await prisma.lecturer.create({data:user});
+        return newLecturer;
+    }
 
+    public async deleteLecturerById(lecturerId:string){
+        
+        const deleteArgs : Prisma.LecturerDeleteArgs = {
+            where:{
+                id:lecturerId.toString()
+            }
+        };
+        await prisma.lecturer.delete(deleteArgs);
+        await firebaseAdmin.auth().deleteUser(lecturerId);
+        return;
+    }
+
+    public async updateLecturer(lecturerId:string, lecturerData:LecturerDTO){
         
 
-    //     return newUser;
-    // }
+        const {gender,id, department,...rest} = lecturerData;
 
-    // public async deleteStudentById(studentId:string){
-        
-    //     const deleteArgs : Prisma.StudentDeleteArgs = {
-    //         where:{
-    //             id:studentId.toString()
-    //         }
-    //     };
-    //     await prisma.student.delete(deleteArgs);
-    //     await firebaseAdmin.auth().deleteUser(studentId);
-    //     return;
-    // }
+        const updateArgs : Prisma.LecturerUpdateArgs={
+            where:{
+                id:lecturerId
+            },
+            data:{gender:this.parseGender(gender),
+            ...rest,
+            departmentId:department?.id
+        }
 
-    // public async updateStudent(studentId:string, studentData:StudentDTO){
-        
+        }
 
-    //     const {gender,course,id, ...rest} = studentData;
+        const updatedLecturer = await prisma.lecturer.update(updateArgs);
+        const fbUser = await firebaseAdmin.auth().getUser(lecturerId);
+        const oldMail =fbUser.email;
+        if(oldMail!=lecturerData.mail){
+        await firebaseAdmin.auth().updateUser(lecturerId,{
+            email:lecturerData.mail
+        });
+        }
 
-    //     const updateArgs : Prisma.StudentUpdateArgs={
-    //         where:{
-    //             id:studentId
-    //         },
-    //         data:{gender:this.parseGender(gender),
-    //         courseId: studentData.course?.id,
-    //         ...rest,
-    //     }
+        if(oldMail!=lecturerData.mail){
+            await firebaseAdmin.auth().updateUser(lecturerId,{
+                displayName:lecturerData.firstname+" "+lecturerData.lastname
+                });
+            }
 
-    //     }
-
-    //     const updatedStudent = await prisma.student.update(updateArgs);
-    //     const fbUser = await firebaseAdmin.auth().getUser(studentId);
-    //     const oldMail =fbUser.email;
-    //     if(oldMail!=studentData.mail){
-    //     await firebaseAdmin.auth().updateUser(studentId,{
-    //         email:studentData.mail
-    //     });
-    //     }
-
-    //     if(oldMail!=studentData.mail){
-    //         await firebaseAdmin.auth().updateUser(studentId,{
-    //             displayName:studentData.firstname+" "+studentData.lastname
-    //             });
-    //         }
-
-    //     return updatedStudent;
-    // }
+        return updatedLecturer;
+    }
 
 
 

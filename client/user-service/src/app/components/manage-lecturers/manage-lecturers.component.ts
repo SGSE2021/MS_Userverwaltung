@@ -4,7 +4,6 @@ import { LecturerTableComponent } from './components/lecturer-table/lecturer-tab
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLecturerComponent } from './components//create-lecturer/create-lecturer.component';
 import { DepartmentPoolDTO } from '@common/dto/department-pool.dto';
-import { StudentsService } from 'src/app/services/students/students.service';
 import { DataService } from 'src/app/services/data/data.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -22,7 +21,7 @@ import { LecturerService } from 'src/app/services/lecturers/lecturer-service.ser
 export class ManageLecturersComponent implements OnInit {
   displayedColumns: string[] = ['uid', 'title', 'lastname', 'firstname', 'department'];
   dataSource = new MatTableDataSource<LecturerDTO>();
-  selectedStudentId: string | null = null;
+  selectedLecturerId: string | null = null;
   departmentPool: DepartmentPoolDTO[] = [];
 
   @ViewChild( 'table' ) lecturerForm?: LecturerTableComponent
@@ -61,50 +60,50 @@ export class ManageLecturersComponent implements OnInit {
       this.dataSource.sort = this.sort;
   }
 
-  openAddStudentDialog(): void {
+  openAddLecturerDialog(): void {
     const dialogRef = this.dialog.open( CreateLecturerComponent );
     dialogRef.afterClosed().subscribe( result => {
       console.log( 'The dialog was closed' );
       sub.unsubscribe();
     } );
 
-    const sub = dialogRef.componentInstance.newLecturerEvent.subscribe( ( student ) => {
-      alert( student.firstname );
-      this.dataSource.data.push( student );
+    const sub = dialogRef.componentInstance.newLecturerEvent.subscribe( ( lecturer ) => {
+      this.lecturerService.getAllLecturers().subscribe( ( lecturers ) => {
+        this.dataSource.data = lecturers;
+      } )
     } )
   }
 
 
 
   get selectedLecturer() {
-    return this.selectedStudentId
-      ? this.dataSource.data.find( student => student.id === this.selectedStudentId )
+    return this.selectedLecturerId
+      ? this.dataSource.data.find( lecturer => lecturer.id === this.selectedLecturerId )
       : null;
   }
 
-  onStudentChanged( id: string | undefined, data: LecturerDTO ) {
-    this.dataSource.data = this.dataSource.data.map( student =>
-      student.id === id ? { ...student, ...data } : student
+  onLecturerChanged( id: string | undefined, data: LecturerDTO ) {
+    this.dataSource.data = this.dataSource.data.map( lecturer =>
+      lecturer.id === id ? { ...lecturer, ...data } : lecturer
     );
   }
 
-  public submitStudentChanges() {
-    if ( this.selectedStudentId == null ) return;
-    this.lecturerService.updateLecturer( this.selectedStudentId, this.lecturerForm?.lecturerForm.value ).subscribe( ( student ) => {
-      if ( this.selectedStudentId == null ) return;
-      this.lecturerService.getAllLecturers().subscribe( ( students ) => {
-        this.dataSource.data = students;
+  public submitLecturerChanges() {
+    if ( this.selectedLecturerId == null ) return;
+    this.lecturerService.updateLecturer( this.selectedLecturerId, this.lecturerForm?.lecturerForm.value ).subscribe( ( student ) => {
+      if ( this.selectedLecturerId == null ) return;
+      this.lecturerService.getAllLecturers().subscribe( ( lecturers ) => {
+        this.dataSource.data = lecturers;
       } )
-      //this.onStudentChanged(this.selectedStudentId,student);
     } );
 
   }
 
 
-  public deleteStudent() {
-    if ( this.selectedStudentId == null ) return;
-    const IdToDelete = this.selectedStudentId;
-    this.lecturerService.deleteLecturer( this.selectedStudentId ).subscribe( ( student ) => {
+  public deleteLecturer() {
+    if ( this.selectedLecturerId == null ) return;
+    const IdToDelete = this.selectedLecturerId;
+    this.lecturerService.deleteLecturer( this.selectedLecturerId ).subscribe( ( lecturer ) => {
 
       this.dataSource.data = this.dataSource.data.filter( item => item.id !== IdToDelete );
     } );

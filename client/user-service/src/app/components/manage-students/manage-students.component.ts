@@ -70,8 +70,9 @@ export class ManageStudentsComponent implements OnInit {
     });
 
     const sub = dialogRef.componentInstance.newStudentEvent.subscribe((student)=>{
-      alert(student.firstname);
-      this.dataSource.data.push(student);
+      this.studentService.getAllStudents().subscribe( ( students ) => {
+        this.dataSource.data = students;
+      } )
     })
   }
 

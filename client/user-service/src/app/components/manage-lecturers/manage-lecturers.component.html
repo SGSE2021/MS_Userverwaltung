@@ -1,66 +1,59 @@
-<!-- <pre>{{dataSource.data[1]|json}}</pre>-->
 <div id="container">
-    <div id="header">
-        <mat-form-field >
-          <input matInput type="text" (keyup)="doFilter($event?.target)" placeholder="Filter">
-        </mat-form-field>
-        <div></div>
-        <button id="btnAddStudent" mat-raised-button color="primary" 
-          (click)="openAddStudentDialog()">
-          Lehrenden anlegen
-        </button>
-    </div>
-    <div id="tableContainer" class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort>
-  
-        <!--- Note that these columns can be defined in any order.
-            The actual rendered columns are set as a property on the row definition" -->
-  
-        <ng-container matColumnDef="uid">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> UID </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-        </ng-container>
-  
-  
-        <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Titel </th>
-          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="lastname">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Nachname </th>
-          <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="firstname">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Vorname </th>
-          <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
-        </ng-container>
-
-  
-        <ng-container matColumnDef="department">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> Fachbereich </th>
-          <td mat-cell *matCellDef="let element"> {{element.department.name}} </td>
-        </ng-container>
-  
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"
-          [class.demo-row-is-clicked]="selectedStudentId === row.id" (click)="selectedStudentId = row.id;"></tr>
-      </table>
-  
-  
-  
-      <mat-paginator lass="mat-elevation-z8" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-    </div>
-    <div id="labelContainer">
-      <mat-label id="studierendenLabel">Lehrendendaten</mat-label>
-    </div>
-    <app-lecturer-table #table [departmentPool]="departmentPool" [lecturer]="selectedLecturer"></app-lecturer-table>
-  
-  
-    <div *ngIf="selectedLecturer" id="footer">
-      <button [disabled]="table?.invalid" mat-raised-button (click)="submitStudentChanges()" color="primary">Änderungen
-        speichern</button>
-      <button (click)="deleteStudent()" mat-raised-button>Lehrenden entfernen</button>
-    </div>
+  <div id="header">
+    <mat-form-field>
+      <input matInput type="text" (keyup)="doFilter($event?.target)" placeholder="Filter">
+    </mat-form-field>
+    <div></div>
+    <button id="btnAddStudent" mat-raised-button color="primary" (click)="openAddLecturerDialog()">
+      Lehrenden anlegen
+    </button>
   </div>
+  <div id="tableContainer" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="uid">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> UID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Titel </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nachname </th>
+        <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="firstname">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vorname </th>
+        <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="department">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fachbereich </th>
+        <td mat-cell *matCellDef="let element"> {{element.department.name}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"
+        [class.demo-row-is-clicked]="selectedLecturerId === row.id" (click)="selectedLecturerId = row.id;"></tr>
+    </table>
+
+  </div>
+  <div id="labelContainer">
+    <mat-label id="studierendenLabel">Lehrendendaten</mat-label>
+  </div>
+  <app-lecturer-table #table [departmentPool]="departmentPool" [lecturer]="selectedLecturer"></app-lecturer-table>
+
+
+  <div *ngIf="selectedLecturer" id="footer">
+    <button [disabled]="table?.lecturerForm?.invalid" mat-raised-button (click)="submitLecturerChanges()"
+      color="primary">Änderungen
+      speichern</button>
+    <button (click)="deleteLecturer()" mat-raised-button>Lehrenden entfernen</button>
+  </div>
+</div>

@@ -34,16 +34,15 @@
       <input matInput formControlName="lastname">
     </mat-form-field>
 
-  
+  <div formGroupName = "department">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Fachbereich</mat-label>
-      <!-- <mat-select (valueChange)="handleValueChange($event); selectCourse.value='sad'" [(value)]="selectedDepId" -->
-        <mat-select (valueChange)="handleValueChange($event)" [(value)]="selectedDepId"
-        #selectDepartment>
+      <mat-select formControlName="id">
+         <!-- <mat-select (valueChange)="handleValueChange($event)" [(value)]="selectedDepId" #selectDepartment>  -->
         <mat-option *ngFor="let dep of departmentPool" [value]="dep.id">{{dep.name}}</mat-option>
       </mat-select>
     </mat-form-field>
-
+  </div>
   
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Telefon</mat-label>

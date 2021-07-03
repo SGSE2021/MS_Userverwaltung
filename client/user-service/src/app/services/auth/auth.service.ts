@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject, Observable, of } from 'rxjs';
+import { UserInfoDTO } from "../../../../../../common/dto/userInfo.dto"
 
 @Injectable( {
   providedIn: 'root'
@@ -10,6 +11,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 export class AuthService {
   public currentToken: BehaviorSubject<string | null>;
   public displayName: BehaviorSubject<string | null>;
+  public user: BehaviorSubject<UserInfoDTO | null>;
   private TOKEN_IDENTIFIER = "token";
 
   constructor(
@@ -19,8 +21,13 @@ export class AuthService {
     this.currentToken = new BehaviorSubject<string | null>( localStorage.getItem( this.TOKEN_IDENTIFIER ) );
 
     this.displayName = new BehaviorSubject<string | null>( localStorage.getItem( "display-name" ) );
-    if(this.displayName.getValue()===null){
-      this.displayName.next("Annonymous");
+    const currentUserObject = localStorage.getItem( "current-user" );
+    this.user = new BehaviorSubject<UserInfoDTO | null>(null);
+    if ( currentUserObject ) {
+      this.user = new BehaviorSubject<UserInfoDTO | null>( JSON.parse( currentUserObject ) );
+    }
+    if ( this.displayName.getValue() === null ) {
+      this.displayName.next( "Annonymous" );
     }
     // this.user = this.angularFireAuth.authState.pipe(
     //   switchMap( user =>{

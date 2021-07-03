@@ -96,10 +96,10 @@ export class LecturerTableComponent implements OnInit, OnChanges {
   }
  
 
-  get invalid(){
-    console.log(this.lecturerForm?.invalid || this.selectedCourse == -1);
-    return this.lecturerForm?.invalid || this.selectedCourse == -1;
-  }
+  // get invalid(){
+  //   console.log(this.lecturerForm?.invalid || this.selectedCourse == -1);
+  //   return this.lecturerForm?.invalid || this.selectedCourse == -1;
+  // }
   
   
 

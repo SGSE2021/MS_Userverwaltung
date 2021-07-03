@@ -5,7 +5,7 @@
     </div>
     <app-lecturer-table [departmentPool]="departmentPool" [lecturer]=newLecturer #table></app-lecturer-table>
     <div id="footer">
-      <button (click)="createLecturer()" id="btnAddStudent" [disabled]="table?.invalid" mat-raised-button
+      <button (click)="createLecturer()" id="btnAddStudent" [disabled]="table?.lecturerForm?.invalid" mat-raised-button
         color="primary">Lehrenden hinzufügen</button>
       <button id="btnCancel" mat-raised-button (click)="onNoClick()">Abbrechen</button>
     </div>
