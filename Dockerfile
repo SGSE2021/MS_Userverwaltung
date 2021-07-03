@@ -14,7 +14,6 @@ WORKDIR /usr/src/app/server
 COPY --from=ui-build /usr/src/app/client/user-service/dist ./client
 #COPY package*.json ./
 COPY server/ .
-COPY database/prisma /usr/src/app/database/prisma
 RUN npm install
 ENV PORT=8080
 

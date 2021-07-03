@@ -1,4 +1,4 @@
-import { Department, StudyCourse} from "@prisma/client";
+import { Department, StudyCourse} from "../../../../database/node_modules/@prisma/client";
 import { DepartmentDTO } from "../../../../common/dto/department.dto";
 import { DepartmentPoolDTO } from "../../../../common/dto/department-pool.dto";
 import prisma from "../../database";

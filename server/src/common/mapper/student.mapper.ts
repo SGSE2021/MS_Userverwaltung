@@ -1,5 +1,5 @@
 import { StudyCourseDTO } from "../../../../common/dto/study-course.dto";
-import { Department, Student, StudyCourse } from "@prisma/client";
+import { Department, Student, StudyCourse } from "../../../../database/node_modules/@prisma/client";
 import { StudentDTO } from "../../../../common/dto/student.dto";
 
 export class StudentMapper{
