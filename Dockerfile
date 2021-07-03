@@ -6,7 +6,7 @@ COPY client/ /usr/src/app/client/
 RUN ls
 COPY common/ .
 COPY database/ .
-RUN cd databse && npm install
+RUN cd database && npm install
 RUN cd client/user-service && npm install @angular/cli && npm install && npm run build
 
 
