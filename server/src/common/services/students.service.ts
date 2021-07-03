@@ -35,7 +35,9 @@ export class StudentsService {
     }
 
     public async getStudentById(id:string) {
-        const foundStudent = await prisma.student.findFirst({include:{
+        const foundStudent = await prisma.student.findFirst({where:{
+            id:id
+        },include:{
             course:{
                 include:{
                     department:true
