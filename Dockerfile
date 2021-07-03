@@ -14,7 +14,7 @@ RUN ls
 WORKDIR /usr/src/app/server
 COPY --from=ui-build /usr/src/app/client/user-service/dist ./client
 
-COPY common/ ./common
+COPY common/ /usr/src/app/common/
 COPY database/  /usr/src/app/database/
 RUN cd /usr/src/app/database/ && npm install
 
