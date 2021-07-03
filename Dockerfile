@@ -16,6 +16,7 @@ COPY --from=ui-build /usr/src/app/client/user-service/dist ./client
 
 COPY common/ ./common
 COPY database/  /usr/src/app/database/
+RUN cd database && npm install
 
 COPY server/ /usr/src/app/server
 
