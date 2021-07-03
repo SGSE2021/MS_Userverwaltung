@@ -1,6 +1,10 @@
 FROM node:lts AS ui-build
 WORKDIR /usr/src/app
-COPY client/user-service ./client/user-service
+COPY common/ ./common
+COPY client/ /usr/src/app/client/
+
+RUN ls
+COPY common/ .
 RUN cd client/user-service && npm install @angular/cli && npm install && npm run build
 
 
@@ -14,3 +18,7 @@ RUN npm install
 ENV PORT=8080
 EXPOSE 8080
 CMD ["npm","run", "start"]
+
+#/usr/src/app/common
+#             client
+#             server
