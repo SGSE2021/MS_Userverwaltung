@@ -69,7 +69,7 @@ export class StudentsService {
             lastname:rest.lastname,
             mail:rest.mail,
             matriculationNumber:rest.matriculationNumber,
-            semester:rest.semester,
+            semester:parseInt(rest.semester.toString()),
             course:{connect:{
                 id:rest.course.id
             }}
