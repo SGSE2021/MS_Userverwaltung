@@ -14,9 +14,11 @@ export class AuthService {
         }
 
         const userInfo: UserInfoDTO = {
+            uid:user.id,
             firstname:user.firstname,
-            lasname:user.lastname,
-            role:role
+            lastname:user.lastname,
+            role:role,
+
 
         }
         
