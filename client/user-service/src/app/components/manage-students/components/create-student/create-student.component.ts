@@ -8,6 +8,7 @@ import { DataService } from 'src/app/services/data/data.service';
 import { StudentsService } from 'src/app/services/students/students.service';
 import { EventEmitter } from '@angular/core';
 import { StudentTableComponent } from '../student-table/student-table/student-table.component';
+import { DialogData } from 'src/app/components/manage-lecturers/components/create-lecturer/create-lecturer.component';
 
 @Component({
   selector: 'create-student',
@@ -41,7 +42,9 @@ export class CreateStudentComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     public dataService:DataService,
     private studentService:StudentsService
-  ) { }
+  ) { 
+
+  }
 
   async ngOnInit() {
     const response = await this.dataService.getDepartmentPool();
@@ -60,9 +63,4 @@ export class CreateStudentComponent implements OnInit {
       this.newStudentEvent.emit(student);
     })
   }
-}
-
-export interface DialogData {
-  animal: string;
-  name: string;
 }
