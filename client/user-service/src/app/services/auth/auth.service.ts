@@ -1,69 +1,59 @@
 import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
-import { switchMap } from "rxjs/operators";
 import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { UserInfoDTO } from "../../../../../../common/dto/userInfo.dto"
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable( {
   providedIn: 'root'
 } )
 export class AuthService {
-  public currentToken: BehaviorSubject<string | null>;
-  public displayName: BehaviorSubject<string | null>;
-  public user: BehaviorSubject<UserInfoDTO | null>;
-  private TOKEN_IDENTIFIER = "token";
-
+  public user: BehaviorSubject<UserInfoDTO>;
+  private placeHolderUser: UserInfoDTO = {
+    uid: "-1",
+    firstname: "Annonymous",
+    lastname: "",
+    role: -1
+  }
   constructor(
     private angularFireAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private http: HttpClient
   ) {
-    this.currentToken = new BehaviorSubject<string | null>( localStorage.getItem( this.TOKEN_IDENTIFIER ) );
-
-    this.displayName = new BehaviorSubject<string | null>( localStorage.getItem( "display-name" ) );
     const currentUserObject = localStorage.getItem( "current-user" );
-    this.user = new BehaviorSubject<UserInfoDTO | null>(null);
     if ( currentUserObject ) {
-      this.user = new BehaviorSubject<UserInfoDTO | null>( JSON.parse( currentUserObject ) );
+      this.user = new BehaviorSubject<UserInfoDTO>( JSON.parse( currentUserObject ) );
+    } else {
+      this.user = new BehaviorSubject<UserInfoDTO>( this.placeHolderUser );
     }
-    if ( this.displayName.getValue() === null ) {
-      this.displayName.next( "Annonymous" );
-    }
-    // this.user = this.angularFireAuth.authState.pipe(
-    //   switchMap( user =>{
-    //     if(user){
-    //       return this.angularFireAuth.
-    //     }else{
-    //       return of(null);
-    //     }
-    //   })
-    // )
+
   }
 
-  async login( email: string, password: string ): Promise<string | undefined> {
+  async login( email: string, password: string ) {
     console.log( `Logging in with ${ email } and ${ password }.` )
     const response = await this.angularFireAuth.signInWithEmailAndPassword( email, password );
-    const jwtToken = await response.user?.getIdToken( true );
-    if ( jwtToken ) {
-      localStorage.setItem( this.TOKEN_IDENTIFIER, jwtToken );
+    const uid = response.user?.uid;
+    const names = response.user?.displayName?.split( " " ) || ["Annonymous", ""];
+    
+    const requestUrl = `${environment.restApi}/getUserInfo/${uid}`;
+    const userInfo =await this.http.post<UserInfoDTO>(requestUrl,{}).toPromise();
+    this.user.next( userInfo);
 
-      this.currentToken.next( jwtToken );
-      if ( response.user?.displayName ) {
-        console.log( "New displayname " + response.user.displayName );
-        this.displayName.next( response.user?.displayName );
-        localStorage.setItem( "display-name", response.user.displayName );
+    console.dir( "New user ", this.user.getValue() );
+    localStorage.setItem( "current-user", JSON.stringify( this.user.getValue() ) );
 
-      }
-    }
-    return response.user?.uid;
+
+    return this.user;
   }
 
   async logout() {
     console.log( "Logout:logged out" );
-    localStorage.removeItem( this.TOKEN_IDENTIFIER );
-    this.currentToken.next( null );
-    localStorage.removeItem( "display-name" );
-    this.displayName.next( "Annonymous" );
+    this.user.next( this.placeHolderUser );
+    localStorage.removeItem( "current-user" );
+
     await this.angularFireAuth.signOut();
     console.log( "Signed out from angualFire" );
     console.log( "Navigate to /login" );

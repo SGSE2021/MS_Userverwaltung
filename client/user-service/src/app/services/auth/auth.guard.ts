@@ -12,8 +12,8 @@ export class AuthGuard implements CanActivate {
     
   }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.auth.currentToken.pipe(take(1),
-      map(user => !!user),
+    return this.auth.user.pipe(take(1),
+      map(user => user.uid!="-1"),
       tap(loggedIn => {
         if (!loggedIn) {
           console.log("User not logged in, redirect to /login");

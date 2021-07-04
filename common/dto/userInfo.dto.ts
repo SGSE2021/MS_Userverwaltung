@@ -1,7 +1,8 @@
 import { RoleDTO } from "./role.enum";
 
 export interface UserInfoDTO{
+    uid:string,
     firstname:string
-    lasname:string
+    lastname:string
     role:RoleDTO
 }

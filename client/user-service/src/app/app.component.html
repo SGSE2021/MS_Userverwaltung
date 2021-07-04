@@ -19,8 +19,8 @@
     <a mat-list-item color="primary"(click)="opened=false" [routerLink]="['/lecturers']">Lehrende</a>
     <a mat-list-item color="primary"(click)="opened=false">Raumbuchung</a>
 
-    <a *ngIf= "this.authService.currentToken.value == null" mat-list-item color="primary" [routerLink]="['/login']">Einloggen</a>
-    <a *ngIf= "(this.authService.currentToken.value !== null)" mat-list-item color="primary" (click)="authService.logout()">Ausloggen</a>
+    <a *ngIf= "this.authService.user.getValue().uid == '-1'" mat-list-item color="primary" [routerLink]="['/login']">Einloggen</a>
+    <a *ngIf= "(this.authService.user.getValue().uid != '-1')" mat-list-item color="primary" (click)="authService.logout()">Ausloggen</a>
     
   </mat-nav-list>
   </mat-sidenav>
@@ -35,7 +35,7 @@
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
         <mat-icon [routerLink]="['/settings']" >account_circle</mat-icon>
     </button>
-    <label>{{this.authService.displayName.getValue()}}</label>
+    <label> {{this.authService.user.getValue().firstname}} {{this.authService.user.getValue().lastname}} </label>
   </div>
   </mat-toolbar>
   <!-- <ngx-auth-firebaseui-login 

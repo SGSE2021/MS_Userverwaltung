@@ -1,5 +1,5 @@
 export enum RoleDTO {
-    STUDENT,
+    STUDENT=1,
     ADMINSTRATIVE,
     LECTURER
 }

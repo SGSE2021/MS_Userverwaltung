@@ -29,7 +29,8 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (this.authService.currentToken.value) {
+    if (this.authService.user.getValue()?.uid != "-1") {
+      console.log(this.authService.user.getValue())
       console.log("Already logged in");
       this.router.navigate(['/']);
     }
