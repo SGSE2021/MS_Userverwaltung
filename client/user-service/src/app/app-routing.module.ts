@@ -14,14 +14,14 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'settings', component: SettingsComponent,canActivate:[AuthGuard]},
   { path: 'students', component: ManageStudentsComponent,
-  canActivate:[AuthGuard,RoleGuard],
+  canActivate:[RoleGuard,AuthGuard],
   data:{
     role:RoleDTO.ADMINSTRATIVE
   }
   },
   { 
     path: 'lecturers', component: ManageLecturersComponent,
-    canActivate:[AuthGuard,RoleGuard],
+    canActivate:[RoleGuard,AuthGuard],
     data:{
       role:RoleDTO.ADMINSTRATIVE
     }

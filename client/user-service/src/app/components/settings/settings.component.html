@@ -1,1 +1,21 @@
-<p>settings works!</p>
+<ng-container *ngIf ="authService.user.getValue().role == 1">
+    <app-student-table  id="settingsTable" [student]="selectedStudent" [departmentPool]="departmentPool"></app-student-table>
+    <div id="footer">
+        <button 
+            (click)="submitStudentChanges()" id="btnAddStudent" 
+            [disabled]="studentsTable?.invalid" mat-raised-button
+            color="primary">Änderungen speichern
+        </button>
+    </div>
+</ng-container>
+
+<ng-container *ngIf ="authService.user.getValue().role == 3" >
+    <app-lecturer-table #lecturerTable [lecturer]="lecturer" [departmentPool]="departmentPool"></app-lecturer-table>
+    <div id="footer">
+        <button 
+            (click)="submitLecturerChanges()" id="btnAddStudent" 
+            [disabled]="studentsTable?.invalid" mat-raised-button
+            color="primary">Änderungen speichern
+        </button>
+    </div>
+</ng-container>
