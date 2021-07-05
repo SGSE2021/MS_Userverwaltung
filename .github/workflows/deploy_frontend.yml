@@ -11,7 +11,7 @@ on:
 env:
   IMAGE_NAME: ms_userverwaltung-frontend
   SERVICE_NAME: userverwaltung-frontend
-  DOCKERFILE: ./client/user-serive/Dockerfile
+  DOCKERFILE: ./client/user-service/Dockerfile
   MANIFESTFILE: manifests/userverwaltung-frontend.yaml
 
 jobs:
