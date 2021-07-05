@@ -10,7 +10,6 @@ on:
   
 env:
   IMAGE_NAME: ms_userverwaltung
-  IMAGE_FRONTEND: ms_userverwaltung-frontend
   SERVICE_NAME: userverwaltung
   DOCKERFILE: ./Dockerfile
   MANIFESTFILE: manifests/userverwaltung.yaml
