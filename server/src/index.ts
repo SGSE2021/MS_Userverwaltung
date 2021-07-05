@@ -55,8 +55,6 @@ export class Messenger {
     public send(type: string, message: any) {
         const connection = new Amqp.Connection("amqp://user:5ux6mBcfMX@rabbitmq.support.svc.cluster.local:5672/");
         const exchange = connection.declareExchange("userservice", "fanout");
-        console.log("connection",connection);
-        console.log("exchange",exchange);
         connection.completeConfiguration().then(() => {
             console.log("222222222222");
             const msg = new Amqp.Message(message, {
