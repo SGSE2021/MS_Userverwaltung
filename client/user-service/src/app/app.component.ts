@@ -16,5 +16,6 @@ export class AppComponent {
 
   log(state:string){
     console.log(state);
+    window.location.href="https://sgse2021.westeurope.cloudapp.azure.com/nachrichten"
   }
 }
