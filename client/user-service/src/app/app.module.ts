@@ -16,7 +16,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { ManageStudentsComponent } from './components/manage-students/manage-students.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { CommonModule } from '@angular/common';
+import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import { CreateStudentComponent } from './components/manage-students/components/create-student/create-student.component';
 import { StudentTableComponent } from './components/manage-students/components/student-table/student-table/student-table.component';
 import { ManageLecturersComponent } from './components/manage-lecturers/manage-lecturers.component';
@@ -66,7 +66,8 @@ const config = {
   exports:[
     LoginComponent
   ],
-  providers: [{provide: MAT_DATE_LOCALE,useValue:'de-de'}],
+  ///@ts-ignore
+  providers: [{provide: MAT_DATE_LOCALE,useValue:'de-de'},{provide:APP_BASE_HREF,useValue: window['base-href']}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
