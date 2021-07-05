@@ -1,4 +1,4 @@
-name: Build and deploy application to Azure AKS Cluster
+name: Build and deploy frontend to Azure AKS Cluster
 on:
   push:
     branches: [ main ]
