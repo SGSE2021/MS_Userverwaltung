@@ -25,7 +25,10 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install packages
+    - name: Install packages from database
+      run: npm ci
+      working-directory: ./server
+    - name: Install packages from server
       run: npm ci
       working-directory: ./server
     - name: Build server
