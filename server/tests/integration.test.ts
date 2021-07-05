@@ -11,7 +11,7 @@ describe("Test API",()=>{
     it("should return all movies on GET /movies",async ()=>{  
         // const test = await request(testServer.app).get("/students");
         // expect(test.statusCode).toEqual(200);
-        expect(true).toBe(true);
+        expect(true).toBe(true); 
         })
 
 
