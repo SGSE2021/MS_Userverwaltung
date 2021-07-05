@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/SGSE2021/MS_Userverwaltung#readme",
   "dependencies": {
+    "amqp-ts": "^1.8.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase": "^8.6.8",
