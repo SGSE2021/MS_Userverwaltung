@@ -13,7 +13,7 @@ COPY client/    /usr/src/app/client/
 COPY database/  /usr/src/app/database/
 
 RUN cd database && npm install
-RUN cd client/user-service && npm install @angular/cli && npm install && npm run build --baseHref='/users/'
+RUN cd client/user-service && npm install @angular/cli && npm install && npm run build
 
 
 # Stage 2
