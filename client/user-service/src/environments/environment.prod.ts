@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  restApi: 'http://' + 'sgse2021.westeurope.cloudapp.azure.com'
+  restApi: 'https://' + 'sgse2021.westeurope.cloudapp.azure.com/users-api'
 };
