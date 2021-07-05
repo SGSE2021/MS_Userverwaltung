@@ -4,7 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { UserInfoDTO } from "../../../../../../common/dto/userInfo.dto"
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable( {

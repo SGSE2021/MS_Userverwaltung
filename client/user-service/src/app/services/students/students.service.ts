@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StudentDTO } from '@common/dto/student.dto';
+import { environment } from '../../../environments/environment';
 
 @Injectable( {
   providedIn: 'root'
@@ -11,22 +12,22 @@ export class StudentsService {
 
   }
   updateStudent( uuid: string, student: StudentDTO ) {
-    return this.httpClient.put<StudentDTO>( `http://localhost:8080/students/${ uuid }`, student );
+    return this.httpClient.put<StudentDTO>( `${environment.restApi}/students/${ uuid }`, student );
   }
 
   createStudent( student: StudentDTO ) {
-    return this.httpClient.post<StudentDTO>( `http://localhost:8080/students`, student );
+    return this.httpClient.post<StudentDTO>( `${environment.restApi}/students`, student );
   }
 
   deleteStudent( uuid: string ) {
-    return this.httpClient.delete<StudentDTO>( `http://localhost:8080/students/${ uuid }` );
+    return this.httpClient.delete<StudentDTO>( `${environment.restApi}/students/${ uuid }` );
   }
 
   getStudentById( uuid: string ) {
-    return this.httpClient.get<StudentDTO>( `http://localhost:8080/students/${ uuid }` );
+    return this.httpClient.get<StudentDTO>( `${environment.restApi}/students/${ uuid }` );
   }
 
   getAllStudents() {
-    return this.httpClient.get<StudentDTO[]>( `http://localhost:8080/students` );
+    return this.httpClient.get<StudentDTO[]>( `${environment.restApi}/students` );
   }
 }
