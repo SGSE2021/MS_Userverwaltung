@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import { HttpException } from '../../common/exceptionTypes/httpException';
 import { AuthService } from '../services/auth.service';
 
 export class AuthController {
@@ -10,7 +9,7 @@ export class AuthController {
 
     public getUserInfo = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try {
-            const token:string = req.params.token; //Wegen Settings/Ganzen user zurückgeben? Lieber eigene Route bzw getStudentById
+            const token:string = req.params.token;
             console.log(token);
             const userInfo = await this.authService.getUserInfo(token);
             if(!userInfo){
@@ -21,5 +20,4 @@ export class AuthController {
             next(error);
         }
     };
-   
 }
