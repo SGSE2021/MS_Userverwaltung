@@ -27,4 +27,4 @@ jobs:
     - working-directory: ./server
     - run: npm ci
     - run: npm run build
-    - run: npx jest
+    - run: npm run test
