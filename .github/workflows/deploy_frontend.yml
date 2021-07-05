@@ -9,11 +9,10 @@ on:
   workflow_dispatch:
   
 env:
-  IMAGE_NAME: ms_userverwaltung
-  IMAGE_FRONTEND: ms_userverwaltung-frontend
-  SERVICE_NAME: userverwaltung
-  DOCKERFILE: ./Dockerfile
-  MANIFESTFILE: manifests/userverwaltung.yaml
+  IMAGE_NAME: ms_userverwaltung-frontend
+  SERVICE_NAME: userverwaltung-frontend
+  DOCKERFILE: ./client/user-serive/Dockerfile
+  MANIFESTFILE: manifests/userverwaltung-frontend.yaml
 
 jobs:
   build:

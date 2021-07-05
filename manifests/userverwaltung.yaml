@@ -18,7 +18,8 @@ spec:
       - name: userverwaltung
         image: sgse2021containerregistry.azurecr.io/ms_userverwaltung:latest
         ports:
-        - containerPort: 8080 
+        - containerPort: 8080 #client api
+        - containerPort: 8181 #ms api
 ---
 apiVersion: v1
 kind: Service
@@ -26,6 +27,7 @@ metadata:
   name: userverwaltung
 spec:
   ports:
-  - port: 8080
+  - port: 8080  #client api
+  - port: 8181  #ms api
   selector:
     app: userverwaltung
