@@ -55,13 +55,16 @@ export class Messenger {
     public send(type: string, message: any) {
         const connection = new Amqp.Connection("amqp://user:5ux6mBcfMX@rabbitmq.support.svc.cluster.local:5672/");
         const exchange = connection.declareExchange("userservice", "fanout");
-
+        console.dir("connection",connection);
+        console.dir("exchange",exchange);
         connection.completeConfiguration().then(() => {
+            console.log("222222222222");
             const msg = new Amqp.Message(message, {
                 type: type,
                 appId: 'parkplatz'
             });
             exchange.send(msg);
+            console.log("3333333333333333");
         });
     }
 }
