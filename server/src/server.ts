@@ -6,7 +6,7 @@ import bodyParser from "body-parser"
 
 
 export class RestServer {
-    private app: express.Application;
+    public app: express.Application;
     constructor(routes:Route[]) {
 
         this.app = express();
