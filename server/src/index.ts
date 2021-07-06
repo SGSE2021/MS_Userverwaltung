@@ -74,9 +74,58 @@ main().catch( ( e ) => {
 
 import * as amqp from "amqplib/callback_api"
 
+
+
+//Receiver
+
+amqp.connect('amqp://user:5ux6mBcfMX@rabbitmq.support.svc.cluster.local:5672/', function(error0, connection) {
+    if (error0) {
+        throw error0;
+    }
+    connection.createChannel(function(error1, channel) {
+        if (error1) {
+            throw error1;
+        }
+
+        var queue = 'hello';
+
+        channel.assertQueue(queue, {
+            durable: false
+        });
+
+        console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
+
+        channel.consume(queue, function(msg) {
+            console.log(" [x] Received %s", msg?.content.toString());
+        }, {
+            noAck: true
+        });
+    });
+});
+
+//Sender
+
 amqp.connect('amqp://user:5ux6mBcfMX@rabbitmq.support.svc.cluster.local:5672/', function(error0, connection) {
   if (error0) {
-    console.log(error0);
+    throw error0;
   }
-  connection.createChannel(function(error1, channel) {});
+  connection.createChannel(function(error1, channel) {
+    if (error1) {
+      throw error1;
+    }
+    var queue = 'hello';
+    var msg = 'Hello world';
+
+    channel.assertQueue(queue, {
+      durable: false
+    });
+    setTimeout(function(){
+        channel.sendToQueue(queue, Buffer.from(msg));
+        console.log(" [x] Sent %s", msg);
+
+    }, 5000); 
+
+
+  });
 });
+
