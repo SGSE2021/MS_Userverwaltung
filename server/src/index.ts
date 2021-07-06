@@ -17,7 +17,7 @@ import { AdministrativeRoute as InternalAdministrativeRoute } from "./rest-serve
 
 
 
-const portClient = 8080;
+const portClient = process.env.INTERNAL_PORT || 8080;
 const restServerClient = new RestServer( [
     new ExternalStudensRoute(),
     new ExternalDepartmentsRoute(),
@@ -25,7 +25,7 @@ const restServerClient = new RestServer( [
     new ExternalAuthRoute()
 ] );
 
-const portMs = 8181;
+const portMs = process.env.INTERNAL_PORT || 8181;
 const restServerMs = new RestServer( [
     new InternalStudensRoute(),
     new InternalDepartmentsRoute(),
@@ -38,9 +38,6 @@ async function main() {
     await prisma.$connect();
     restServerClient.start( portClient );
     restServerMs.start( portMs );
-
-    // const messenger = new Messenger();
-    // messenger.send("test","Hallo");
 }
 
 main().catch( ( e ) => {
@@ -48,29 +45,3 @@ main().catch( ( e ) => {
     prisma.$disconnect();
     //exit( 1 );
 } );
-
-// import * as Amqp from "amqp-ts";
-
-// export class Messenger {
-//     public send(type: string, message: any) {
-//         console.log("send invoked")
-//         const connection = new Amqp.Connection("asdasdasdasddas");
-//         const exchange = connection.declareExchange("userservice", "fanout");
-//         console.log("starting configuration");
-//         connection.completeConfiguration().then(() => {
-//             console.log("222222222222");
-//             const msg = new Amqp.Message(message, {
-//                 type: type,
-//                 appId: 'parkplatz'
-//             });
-//             exchange.send(msg);
-//             console.log("3333333333333333");
-//         }).catch((err)=>{
-//             console.log(err)
-//         })
-//     }
-// }
-
-
-
-
