@@ -1,4 +1,3 @@
-import { exit } from "process";
 import prisma from "./database"
 import { RestServer } from "./server";
 import "./databaseInitiator";
@@ -12,9 +11,13 @@ import { StudentsRoute as InternalStudensRoute } from "./rest-server-ms/routes/s
 import { DepartmentsRoute as InternalDepartmentsRoute } from "./rest-server-ms/routes/departments.route";
 import { LecturersRoute as InternalLecturerRoute } from "./rest-server-ms/routes/lecturers.route";
 import { AdministrativeRoute as InternalAdministrativeRoute } from "./rest-server-ms/routes/administrative.route";
+import { RabbitReceiver } from "./rabbitmq-client/rabbit.receiver";
 
 
 
+const rabbitReceiver = new RabbitReceiver("users-new-student",(queue,message)=>{
+console.log(queue,message)
+});
 
 
 const portClient = process.env.INTERNAL_PORT || 8080;
@@ -43,5 +46,4 @@ async function main() {
 main().catch( ( e ) => {
     console.log( e );
     prisma.$disconnect();
-    //exit( 1 );
 } );

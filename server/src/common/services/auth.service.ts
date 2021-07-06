@@ -2,8 +2,6 @@ import prisma from "../../database";
 import { RoleDTO } from "../../../../common/dto/role.enum"
 import { UserInfoDTO } from "../../../../common/dto/userInfo.dto"
 
-
-
 export class AuthService {
 
     public async getUserInfo( uuid: string ) {
