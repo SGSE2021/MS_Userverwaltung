@@ -31,3 +31,4 @@ spec:
   - port: 8181  #ms api
   selector:
     app: userverwaltung
+ 

@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-
+ 
     - name: Azure authentication
       uses: azure/login@v1
       with:

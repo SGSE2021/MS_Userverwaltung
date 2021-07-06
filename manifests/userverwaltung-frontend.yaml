@@ -13,7 +13,7 @@ spec:
         app: userverwaltung-frontend
     spec:
       nodeSelector:
-        "beta.kubernetes.io/os": linux
+        "beta.kubernetes.io/os": linux 
       containers:
       - name: userverwaltung-frontend
         image: sgse2021containerregistry.azurecr.io/ms_userverwaltung-frontend:latest
