@@ -39,30 +39,44 @@ async function main() {
     restServerClient.start( portClient );
     restServerMs.start( portMs );
 
-    const messenger = new Messenger();
-    messenger.send("test","Hallo");
+    // const messenger = new Messenger();
+    // messenger.send("test","Hallo");
 }
 
 main().catch( ( e ) => {
     console.log( e );
     prisma.$disconnect();
-    exit( 1 );
+    //exit( 1 );
 } );
 
-import * as Amqp from "amqp-ts";
+// import * as Amqp from "amqp-ts";
 
-export class Messenger {
-    public send(type: string, message: any) {
-        const connection = new Amqp.Connection("amqp://user:5ux6mBcfMX@rabbitmq.support.svc.cluster.local:5672/");
-        const exchange = connection.declareExchange("userservice", "fanout");
-        connection.completeConfiguration().then(() => {
-            console.log("222222222222");
-            const msg = new Amqp.Message(message, {
-                type: type,
-                appId: 'parkplatz'
-            });
-            exchange.send(msg);
-            console.log("3333333333333333");
-        });
-    }
-}
+// export class Messenger {
+//     public send(type: string, message: any) {
+//         console.log("send invoked")
+//         const connection = new Amqp.Connection("asdasdasdasddas");
+//         const exchange = connection.declareExchange("userservice", "fanout");
+//         console.log("starting configuration");
+//         connection.completeConfiguration().then(() => {
+//             console.log("222222222222");
+//             const msg = new Amqp.Message(message, {
+//                 type: type,
+//                 appId: 'parkplatz'
+//             });
+//             exchange.send(msg);
+//             console.log("3333333333333333");
+//         }).catch((err)=>{
+//             console.log(err)
+//         })
+//     }
+// }
+
+
+import * as amqp from "amqplib/callback_api"
+
+amqp.connect('amqp://user:5ux6mBcfMX@rabbitmq.support.svc.cluster.local:5672/', function(error0, connection) {
+  if (error0) {
+    console.log(error0);
+  }
+  connection.createChannel(function(error1, channel) {});
+});
