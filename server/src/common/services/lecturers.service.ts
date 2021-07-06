@@ -1,9 +1,9 @@
 import { AddLecturerDTO } from "../../../../common/dto/addlecturer.dto"
 import { Prisma } from "../../../../database/node_modules/prisma/prisma-client"
 import prisma from "../../database";
-import { adminApp as firebaseAdmin } from "../../databaseInitiator"
+import { adminApp as firebaseAdmin } from "./firebase.service"
 import { LecturerDTO } from "../../../../common/dto/lecturer.dto";
-import { RabbitSender } from "src/rabbitmq-client/rabbit.sender";
+import { RabbitSender } from "../../rabbitmq-client/rabbit.sender";
 import { parseGender } from "../utils/gender-parser";
 
 

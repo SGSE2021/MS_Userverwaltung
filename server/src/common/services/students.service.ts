@@ -2,7 +2,7 @@ import { AddStudentDTO } from "../../../../common/dto/addstudent.dto"
 import { Prisma } from "../../../../database/node_modules/prisma/prisma-client"
 import prisma from "../../database";
 import { StudentMapper } from "../../common/mapper/student.mapper";
-import { adminApp as firebaseAdmin } from "../../databaseInitiator"
+import { adminApp as firebaseAdmin } from "./firebase.service"
 import { StudentDTO } from "../../../../common/dto/student.dto";
 import { RabbitSender } from "../../rabbitmq-client/rabbit.sender";
 import { parseGender } from "../utils/gender-parser";
