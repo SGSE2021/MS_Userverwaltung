@@ -44,8 +44,11 @@ export class StudentsService {
                 }
             }
         }});
-    
-
+        console.log(foundStudent)
+        if(foundStudent===null){
+            throw new Error("No student found");
+        }
+        console.log(foundStudent)
         const result = this.studentMapper.toDTO(foundStudent);
          
         return result;
