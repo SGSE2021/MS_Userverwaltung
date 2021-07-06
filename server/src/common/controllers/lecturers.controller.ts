@@ -1,8 +1,5 @@
-import { AddStudentDTO } from '../../../../common/dto/addstudent.dto';
 import { NextFunction, Request, Response } from 'express';
-import { HttpException } from '../../common/exceptionTypes/httpException';
 import { LecturerService } from '../services/lecturers.service';
-import { Student, Prisma, Gender } from "../../../../database/node_modules/prisma/prisma-client"
 import { AddLecturerDTO } from '../../../../common/dto/addlecturer.dto';
 
 export class LecturerController {

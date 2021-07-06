@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import { HttpException } from '../../common/exceptionTypes/httpException';
 import {DepartmentService }from '../services/departments.service';
 
 export class DepartmentsController {
