@@ -11,7 +11,7 @@ on:
 env:
   IMAGE_NAME: ms_userverwaltung
   SERVICE_NAME: userverwaltung
-  DOCKERFILE: ./Dockerfile
+  DOCKERFILE: ./server/Dockerfile
   MANIFESTFILE: manifests/userverwaltung.yaml
 
 jobs:
