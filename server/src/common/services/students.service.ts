@@ -5,7 +5,7 @@ import { Student, Prisma, Gender } from "../../../../database/node_modules/prism
 import prisma from "../../database";
 import { StudentMapper } from "../../common/mapper/student.mapper";
 
-import { adminApp as firebaseAdmin, app as firebase } from "../../databaseInitiator"
+import { adminApp as firebaseAdmin } from "../../databaseInitiator"
 import { StudentDTO } from "../../../../common/dto/student.dto";
 import { RabbitSender } from "../../rabbitmq-client/rabbit.sender";
 
@@ -91,7 +91,7 @@ export class StudentsService {
         }
 
         const newUser = await prisma.student.create( { data: user } );
-        this.rabbitSender.send( "users-student-add", JSON.stringify(newUser) );
+        this.rabbitSender.send( "users-student-add", JSON.stringify( newUser ) );
         return newUser;
     }
 
@@ -104,7 +104,7 @@ export class StudentsService {
         };
         await prisma.student.delete( deleteArgs );
         await firebaseAdmin.auth().deleteUser( studentId );
-        this.rabbitSender.send("users-students-delete",studentId);
+        this.rabbitSender.send( "users-students-delete", studentId );
         return;
     }
 
@@ -136,7 +136,7 @@ export class StudentsService {
             displayName: studentData.firstname + " " + studentData.lastname
         } );
 
-        this.rabbitSender.send("users-students-update",studentId);
+        this.rabbitSender.send( "users-students-update", studentId );
         return updatedStudent;
     }
 
