@@ -4,7 +4,7 @@
   "description": "Template repository für Microservices",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest tests/ --detectOpenHandles",
+    "test": "jest tests/ --detectOpenHandles --forceExit",
     "build": "rimraf build && tsc",
     "start": "ts-node src/index.ts",
     "serve": "nodemon --exec ts-node src/index.ts",
