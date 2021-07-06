@@ -12,7 +12,6 @@ describe("Test API",()=>{
     it(`should return all Students on GET ${studentsRoute}`,async ()=>{  
         const test = await request(testServer.app).get(studentsRoute);
         expect(test.statusCode).toEqual(200);
-        console.log(test.body)
         })
 
 
