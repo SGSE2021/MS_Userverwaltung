@@ -25,13 +25,13 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-
+        
     - name: Install packages from database
-      run: npm install
+      run: npm ci
       working-directory: ./database
 
     - name: Install packages from server
-      run: npm install
+      run: npm ci
       working-directory: ./server
 
     - name: Test server
