@@ -1,22 +1,17 @@
-//import { StudentPreviewMapper } from "@common/mapper/student-preview.mapper";
 import { AddStudentDTO } from "../../../../common/dto/addstudent.dto"
-import { HttpException } from "../../common/exceptionTypes/httpException";
-import { Student, Prisma, Gender } from "../../../../database/node_modules/prisma/prisma-client"
+import { Prisma } from "../../../../database/node_modules/prisma/prisma-client"
 import prisma from "../../database";
 import { StudentMapper } from "../../common/mapper/student.mapper";
 
 import { adminApp as firebaseAdmin } from "../../databaseInitiator"
 import { StudentDTO } from "../../../../common/dto/student.dto";
 import { RabbitSender } from "../../rabbitmq-client/rabbit.sender";
+import { parseGender } from "../utils/gender-parser";
 
 
 export class StudentsService {
     private studentMapper = new StudentMapper();
     private rabbitSender = new RabbitSender();
-    constructor() {
-
-    }
-
 
     public async getAllStudents() {
         const foundStudents = await prisma.student.findMany( {
@@ -76,7 +71,7 @@ export class StudentsService {
             active: rest.active,
             birthdate: rest.birthdate,
             firstname: rest.firstname,
-            gender: this.parseGender( gender ),
+            gender: parseGender( gender ),
             id: fbUser.uid,
             lastname: rest.lastname,
             mail: rest.mail,
@@ -116,7 +111,7 @@ export class StudentsService {
                 id: studentId
             },
             data: {
-                gender: this.parseGender( gender ),
+                gender: parseGender( gender ),
                 courseId: studentData.course?.id,
                 ...rest,
             }
@@ -138,13 +133,6 @@ export class StudentsService {
 
         this.rabbitSender.send( "users-students-update", studentId );
         return updatedStudent;
-    }
-
-    private parseGender( gender: string ) {
-        if ( gender === "MALE" ) { return gender; }
-        if ( gender === "FEMALE" ) { return gender; }
-        if ( gender === "DIVERSE" ) { return gender; }
-        throw new Error( "Unknown Gender" );
     }
 
 }
