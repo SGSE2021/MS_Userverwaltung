@@ -9,7 +9,7 @@ export class MaintenanceController {
 
     public dbInit = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
         try{           
-            this.maintenanceService.dbInit();
+            await this.maintenanceService.dbInit();
             res.status(200).json({ data: null, message: `Database initialized`})
         }
         catch(e)
