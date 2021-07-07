@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest tests/ --detectOpenHandles --forceExit",
     "build": "rimraf build && tsc",
-    "start": "npx prisma migrate deploy && ts-node src/index.ts",
+    "start": "npx prisma migrate deploy --schema ../database/prisma/schema.prisma && ts-node src/index.ts",
     "serve": "nodemon --exec ts-node src/index.ts",
     "postinstall": "tsc"
   },
