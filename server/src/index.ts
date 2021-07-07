@@ -43,8 +43,8 @@ const restServerMs = new RestServer( [
 
 async function main() {
     await prisma.$connect();
-    restServerClient.start( portClient );
-    restServerMs.start( portMs );
+    // restServerClient.start( portClient );
+    // restServerMs.start( portMs );
 }
 
 main().catch( ( e ) => {
