@@ -20,7 +20,7 @@ try {
         });
         
 } catch (error) {
-    console.log("Rabbit Receiver. Couldn't connect to RabbitMQ")
+    console.log("Rabbit Receiver. Couldn't connect to RabbitMQ from Index")
 }
 
 
