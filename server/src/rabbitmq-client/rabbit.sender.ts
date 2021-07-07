@@ -8,7 +8,7 @@ export class RabbitSender {
 
   public send( queue: string, message: string ) {
     var connected = true;
-    const url = process.env.RABBIT_MQ || 'amqp://guest:guest@localhost:5672/'
+    const url = process.env.RABBIT_MQ || 'amqp://guests:guest@localhost:5672/'
     amqp.connect( url, function ( error0, connection ) {
       if ( error0 ) {
         connected = false;

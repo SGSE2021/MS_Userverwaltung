@@ -14,10 +14,14 @@ import { AdministrativeRoute as InternalAdministrativeRoute } from "./rest-serve
 import { RabbitReceiver } from "./rabbitmq-client/rabbit.receiver";
 
 
-
-const rabbitReceiver = new RabbitReceiver("users-new-student",(queue,message)=>{
-console.log(queue,message)
-});
+try {
+    const rabbitReceiver = new RabbitReceiver("users-new-student",(queue,message)=>{
+        console.log(queue,message)
+        });
+        
+} catch (error) {
+    console.log("Rabbit Receiver. Couldn't connect to RabbitMQ")
+}
 
 
 const portClient = process.env.INTERNAL_PORT || 8080;
