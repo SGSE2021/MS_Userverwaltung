@@ -32,7 +32,7 @@ const restServerClient = new RestServer( [
     new ExternalAuthRoute()
 ] );
 
-const portMs = process.env.INTERNAL_PORT || 8181;
+const portMs = process.env.EXTERNAL_PORT || 8181;
 const restServerMs = new RestServer( [
     new InternalStudensRoute(),
     new InternalDepartmentsRoute(),
@@ -44,7 +44,7 @@ const restServerMs = new RestServer( [
 async function main() {
     await prisma.$connect();
     restServerClient.start( portClient );
-    // restServerMs.start( portMs );
+    restServerMs.start( portMs );
 }
 
 main().catch( ( e ) => {
