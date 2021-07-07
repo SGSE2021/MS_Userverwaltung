@@ -1,5 +1,5 @@
 
-import * as amqp from "amqplib/callback_api"
+// import * as amqp from "amqplib/callback_api"
 
 export class RabbitSender {
   constructor() {

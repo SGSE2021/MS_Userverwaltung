@@ -1,5 +1,5 @@
 
-import * as amqp from "amqplib/callback_api"
+// import * as amqp from "amqplib/callback_api"
 
 export class RabbitReceiver {
     constructor( queue: string, handler: ( queue: string, message: string ) => void ) {
@@ -25,25 +25,25 @@ export class RabbitReceiver {
 
     }
 
-    private createChannel(connection:amqp.Connection,queue:string){
-        connection.createChannel( function ( error1, channel ) {
-            if ( error1 ) {
-                console.log( "Rabbit Receiver:", error1 )
-            }
+    // private createChannel(connection:amqp.Connection,queue:string){
+    //     connection.createChannel( function ( error1, channel ) {
+    //         if ( error1 ) {
+    //             console.log( "Rabbit Receiver:", error1 )
+    //         }
 
-            channel.assertQueue( queue, {
-                durable: false
-            } );
+    //         channel.assertQueue( queue, {
+    //             durable: false
+    //         } );
 
-            console.log( `Waiting for messages in ${ queue }` );
+    //         console.log( `Waiting for messages in ${ queue }` );
 
-            channel.consume( queue, function ( msg ) {
-                console.log( `Rabbit Receiver: ${ msg?.content.toString() }` );
+    //         channel.consume( queue, function ( msg ) {
+    //             console.log( `Rabbit Receiver: ${ msg?.content.toString() }` );
 
-                //handler(queue,msg?.content);
-            }, {
-                noAck: true
-            } );
-        } );
-    }
+    //             //handler(queue,msg?.content);
+    //         }, {
+    //             noAck: true
+    //         } );
+    //     } );
+    // }
 }
