@@ -30,6 +30,7 @@ export class MaintenanceController {
     }
 
     public ping = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-        return ;
+        this.maintenanceService.ping();
+        res.status(200).json("Ping sucessfull")
     }
 }
