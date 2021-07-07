@@ -11,17 +11,17 @@ import { StudentsRoute as InternalStudensRoute } from "./rest-server-ms/routes/s
 import { DepartmentsRoute as InternalDepartmentsRoute } from "./rest-server-ms/routes/departments.route";
 import { LecturersRoute as InternalLecturerRoute } from "./rest-server-ms/routes/lecturers.route";
 import { AdministrativeRoute as InternalAdministrativeRoute } from "./rest-server-ms/routes/administrative.route";
-import { RabbitReceiver } from "./rabbitmq-client/rabbit.receiver";
+// import { RabbitReceiver } from "./rabbitmq-client/rabbit.receiver";
 
 
-try {
-    const rabbitReceiver = new RabbitReceiver("users-new-student",(queue,message)=>{
-        console.log(queue,message)
-        });
+// try {
+//     const rabbitReceiver = new RabbitReceiver("users-new-student",(queue,message)=>{
+//         console.log(queue,message)
+//         });
         
-} catch (error) {
-    console.log("Rabbit Receiver. Couldn't connect to RabbitMQ from Index")
-}
+// } catch (error) {
+//     console.log("Rabbit Receiver. Couldn't connect to RabbitMQ from Index")
+// }
 
 
 const portClient = process.env.INTERNAL_PORT || 8080;

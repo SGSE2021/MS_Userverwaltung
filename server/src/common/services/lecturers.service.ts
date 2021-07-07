@@ -3,12 +3,12 @@ import { Prisma } from "../../../../database/node_modules/prisma/prisma-client"
 import prisma from "../../database";
 import { adminApp as firebaseAdmin } from "./firebase.service"
 import { LecturerDTO } from "../../../../common/dto/lecturer.dto";
-import { RabbitSender } from "../../rabbitmq-client/rabbit.sender";
+// import { RabbitSender } from "../../rabbitmq-client/rabbit.sender";
 import { parseGender } from "../utils/gender-parser";
 
 
 export class LecturerService {
-    private rabbitSender = new RabbitSender();
+    // private rabbitSender = new RabbitSender();
 
     public async getAllLecturers() {
         const foundLecturers = await prisma.lecturer.findMany( {
@@ -59,7 +59,7 @@ export class LecturerService {
 
         const newLecturer = await prisma.lecturer.create( { data: user } );
 
-        this.rabbitSender.send( "users-lecturers-add", JSON.stringify( newLecturer ) );
+        //this.rabbitSender.send( "users-lecturers-add", JSON.stringify( newLecturer ) );
         return newLecturer;
     }
 
@@ -72,7 +72,7 @@ export class LecturerService {
         };
         await prisma.lecturer.delete( deleteArgs );
         await firebaseAdmin.auth().deleteUser( lecturerId );
-        this.rabbitSender.send( "users-lecturers-delete", JSON.stringify( lecturerId ) );
+        // this.rabbitSender.send( "users-lecturers-delete", JSON.stringify( lecturerId ) );
         return;
     }
 
@@ -103,7 +103,7 @@ export class LecturerService {
                 displayName: lecturerData.firstname + " " + lecturerData.lastname
             } );
         }
-        this.rabbitSender.send( "users-lecturers-update", JSON.stringify( updatedLecturer ) );
+        // this.rabbitSender.send( "users-lecturers-update", JSON.stringify( updatedLecturer ) );
         return updatedLecturer;
     }
 
