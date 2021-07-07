@@ -3,25 +3,25 @@ import * as amqp from "amqplib/callback_api"
 
 export class RabbitReceiver {
     constructor( queue: string, handler: ( queue: string, message: string ) => void ) {
-        const url = process.env.RABBIT_MQ || 'amqp://guest:guest@localhost:5672/'
-        try {
-            amqp.connect( url, ( error0, connection ) =>{
-                try {
-                    if ( error0 ) {
-                        throw error0;
-                    }
-                    this.createChannel(connection,queue);
+        // const url = process.env.RABBIT_MQ || 'amqp://guest:guest@localhost:5672/'
+        // try {
+        //     amqp.connect( url, ( error0, connection ) =>{
+        //         try {
+        //             if ( error0 ) {
+        //                 throw error0;
+        //             }
+        //             this.createChannel(connection,queue);
                    
-                } catch (error) {
-                    console.log( "Rabbit Receiver: Couldn't connect to RabbitMQ" )
-                }
+        //         } catch (error) {
+        //             console.log( "Rabbit Receiver: Couldn't connect to RabbitMQ" )
+        //         }
            
     
               
-            } );
-        } catch (error) {
-            throw error;
-        }
+        //     } );
+        // } catch (error) {
+        //     throw error;
+        // }
 
     }
 
