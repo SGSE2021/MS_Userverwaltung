@@ -2,35 +2,7 @@ import prisma from "./database";
 import { getRandomInt } from "./common/utils/getRandomInt";
 import { adminApp } from "./common/services/firebase.service"
 
-async function test() {
-    const deleteAdministrative = prisma.administrative.deleteMany();
-    const deleteStudyCourses = prisma.studyCourse.deleteMany();
-    const deleteDepartment = prisma.department.deleteMany();
-    const deleteLecturer = prisma.lecturer.deleteMany();
-    const deleteStudents = prisma.student.deleteMany();
-
-    // The transaction runs synchronously so deleteUsers must run last.
-    await prisma.$transaction( [
-        deleteAdministrative,
-        deleteStudyCourses,
-
-        deleteLecturer,
-        deleteDepartment,
-        deleteStudents,
-
-    ] )
-
-    console.log( "dropped" )
-
-    const listUsersResult = await adminApp.auth().listUsers();
-    console.log( "Firebase users: " + listUsersResult.users.length );
-
-    //delete all users
-    for ( const user of listUsersResult.users ) {
-        await adminApp.auth().deleteUser( user.uid );
-    }
-    console.log( "Deleted all firebase users" );
-
+async function initDatabase() {
     //Fachbereiche
     const campusMinden = await prisma.department.create( {
         data: {
@@ -180,13 +152,41 @@ async function test() {
 
 
 
-    console.log( "Finished db init" );
+    console.log( "DatabaseInitiator: Finished db init" );
 }
 
 //TODO
 //test();
+async function resetDatabase(){
+    const deleteAdministrative = prisma.administrative.deleteMany();
+    const deleteStudyCourses = prisma.studyCourse.deleteMany();
+    const deleteDepartment = prisma.department.deleteMany();
+    const deleteLecturer = prisma.lecturer.deleteMany();
+    const deleteStudents = prisma.student.deleteMany();
 
-async function createDepartments() {
+    // The transaction runs synchronously so deleteUsers must run last.
+    await prisma.$transaction( [
+        deleteAdministrative,
+        deleteStudyCourses,
+        deleteLecturer,
+        deleteDepartment,
+        deleteStudents,
+
+    ] )
+
+    console.log( "DatabaseInitiator: Reset database" )
+
+    const listUsersResult = await adminApp.auth().listUsers();
+    console.log( "DatabaseInitiator: Firebase users: " + listUsersResult.users.length );
+
+    //delete all users
+    for ( const user of listUsersResult.users ) {
+        await adminApp.auth().deleteUser( user.uid );
+    }
+    console.log( "DatabaseInitiator: Deleted all firebase users" );
+}
+
+async  function createDepartments() {
     const department = await prisma.department.create( {
         data: {
             name: "Campus Minden",
@@ -310,5 +310,5 @@ function get( gender: string ) {
     if ( gender === "DIVERSE" ) { return gender; }
     throw new Error( "Unknown Gender" );
 }
-//db.main();
 
+export {initDatabase, resetDatabase}

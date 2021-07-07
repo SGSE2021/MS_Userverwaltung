@@ -6,6 +6,7 @@ import { StudentsRoute as ExternalStudensRoute } from "./rest-server-client/rout
 import { DepartmentsRoute as ExternalDepartmentsRoute } from "./rest-server-client/routes/departments.route";
 import { LecturersRoute as ExternalLecturersRoute } from "./rest-server-client/routes/lecturers.route";
 import { AuthRoute as ExternalAuthRoute } from "./rest-server-client/routes/auth.route";
+import { MaintenanceRoute as ExternalMaintenanceRoute, MaintenanceRoute } from "./rest-server-client/routes/maintenance.route";
 
 import { StudentsRoute as InternalStudensRoute } from "./rest-server-ms/routes/students.route";
 import { DepartmentsRoute as InternalDepartmentsRoute } from "./rest-server-ms/routes/departments.route";
@@ -29,7 +30,8 @@ const restServerClient = new RestServer( [
     new ExternalStudensRoute(),
     new ExternalDepartmentsRoute(),
     new ExternalLecturersRoute(),
-    new ExternalAuthRoute()
+    new ExternalAuthRoute(),
+    new MaintenanceRoute()
 ] );
 
 const portMs = process.env.EXTERNAL_PORT || 8181;
