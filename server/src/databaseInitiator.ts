@@ -19,7 +19,7 @@ async function initDatabase() {
             name: "Informatik",
             degree: "Master",
             departmentId: campusMinden.id,
-            code: "BINF"
+            code: "MINF"
         }
     } )
     console.log( "DatabaseInitiator: Creating Lecturers in Minden" );
