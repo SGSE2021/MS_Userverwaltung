@@ -16,7 +16,7 @@ import { StudycourseRoute as InternalStudycoursesRoute } from "./rest-server-ms/
 
 import { RabbitReceiver } from "./rabbitmq-client/rabbit.receiver";
 
-
+process.env.standardpassword="123456";
 try {
     const rabbitReceiver = new RabbitReceiver("users-new-student",(queue,message)=>{
         console.log(queue,message)

@@ -303,7 +303,7 @@ async function createLecturer( mail: string,
     departmentId: number ) {
     const fbProfInfMaster1 = await adminApp.auth().createUser( {
         email: mail,
-        password: "123456",
+        password: process.env.standardpassword,
         displayName: firstname + " " + lastname
     } );
     return await prisma.lecturer.create( {
@@ -343,7 +343,7 @@ async function createStudent( mail: string,
 
     const fbStudent = await adminApp.auth().createUser( {
         email: mail,
-        password: "123456",
+        password: process.env.standardpassword,
         displayName: firstname + " " + lastname
     } );
 
@@ -376,7 +376,7 @@ async function createAdministrative( mail: string,
     gender: string ) {
     const fbAdministrative = await adminApp.auth().createUser( {
         email: mail,
-        password: "123456",
+        password: process.env.standardpassword,
         displayName: firstname + " " + lastname
     } );
     return await prisma.administrative.create( {

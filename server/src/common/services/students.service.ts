@@ -61,7 +61,7 @@ export class StudentsService {
 
         const fbUser = await firebaseAdmin.auth().createUser( {
             email: userData.mail,
-            password: "123456",
+            password: process.env.standardpassword,
             displayName: userData.firstname + " " + userData.lastname
         } );
 
