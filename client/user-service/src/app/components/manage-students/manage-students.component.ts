@@ -97,7 +97,6 @@ public submitStudentChanges(){
     this.studentService.getAllStudents().subscribe((students)=>{
       this.dataSource.data = students;
     })
-    //this.onStudentChanged(this.selectedStudentId,student);
   });
   
 }

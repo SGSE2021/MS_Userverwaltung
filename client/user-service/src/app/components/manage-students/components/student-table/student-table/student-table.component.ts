@@ -37,7 +37,6 @@ export class StudentTableComponent implements OnInit, OnChanges {
     active: new FormControl('',[Validators.required])
   });
 
-  //selectedDep: number=-1;
   selectedCourse: number=-1;
   currentCourseList? :StudyCourseDTO[]=[];
 
@@ -63,15 +62,12 @@ export class StudentTableComponent implements OnInit, OnChanges {
     if (changes && changes.student && this.student) {
         console.log(this.student);
         const {course,...patchStudent} = this.student;
-        //this.studentForm.patchValue(patchStudent);
          this.studentForm.patchValue(this.student);
          if(this.student.course){
          this.selectedDep.next(this.student.course.department.id);
          this.selectedCourse = this.student.course.id;
          this.currentCourseList = this.getCourses(this.selectedDep.getValue());
         }
-        // this.selectedDep=this.student.course!.department.id;
-        // this.selectedCourse = this.student.course!.id;
 
 
         this.selectedDepId = this.selectedDep.getValue();

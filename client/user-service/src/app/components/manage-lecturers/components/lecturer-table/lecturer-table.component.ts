@@ -36,7 +36,6 @@ export class LecturerTableComponent implements OnInit, OnChanges {
     active: new FormControl('',[Validators.required])
   });
 
-  //selectedDep: number=-1;
   selectedCourse: number=-1;
   currentCourseList? :StudyCourseDTO[]=[];
 
@@ -94,13 +93,5 @@ export class LecturerTableComponent implements OnInit, OnChanges {
     this.selectedCourse =newCourseId;
     this.lecturerForm.patchValue({course:{id:newCourseId}});
   }
- 
-
-  // get invalid(){
-  //   console.log(this.lecturerForm?.invalid || this.selectedCourse == -1);
-  //   return this.lecturerForm?.invalid || this.selectedCourse == -1;
-  // }
-  
-  
 
 }

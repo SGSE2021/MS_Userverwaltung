@@ -1,9 +1,7 @@
 mat-sidenav-container{
     height:100%;
 }
-/* mat-sidenav, mat-sidenav-content{
-    padding:16 px;
-} */
+
 mat-sidenav {
     width: 200px;
     display:block;

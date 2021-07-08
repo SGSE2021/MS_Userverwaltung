@@ -1,7 +1,3 @@
-<!-- <pre>Form Course {{studentForm.value| json}}</pre>
-<pre>Selected Course {{selectedCourse | json}}</pre>
-<pre>SelectedDep {{selectedDepId| json}}</pre>
-<pre>currentCourseList {{currentCourseList | json}}</pre> -->
 <form *ngIf="this.student" class="detail-form" [formGroup]="studentForm">
 
   <mat-form-field class="example-full-width" appearance="fill">
@@ -21,11 +17,9 @@
 
   <mat-form-field appearance="fill">
     <mat-label>Geburtsdatum</mat-label>
-    <!-- #docregion toggle -->
     <input [matDatepicker]="picker" matInput formControlName="birthdate">
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    <!-- #enddocregion toggle -->
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
@@ -54,7 +48,6 @@
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Studiengang</mat-label>
-    <!-- <mat-select formControlName="department"  >      -->
     <mat-select (valueChange)="handleStudyCourseChange($event)" [value]="selectedCourse" #selectCourse>
       <mat-option *ngFor="let course of currentCourseList" [value]="course.id">{{course.name}} {{course.degree}}
       </mat-option>

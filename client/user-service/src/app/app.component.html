@@ -2,7 +2,6 @@
 <mat-sidenav-container>
 
   <mat-sidenav [(opened)] ="opened">
-    <!-- <mat-sidenav opened mode="side"> -->
     <mat-toolbar color="primary">
       <div id="logo">
         <mat-icon>school</mat-icon>
@@ -38,12 +37,4 @@
     <label> {{this.authService.user.getValue().firstname}} {{this.authService.user.getValue().lastname}} </label>
   </div>
   </mat-toolbar>
-  <!-- <ngx-auth-firebaseui-login 
-    [registrationEnabled] ="false"
-    [providers]="[]"
-    [resetPasswordEnabled]="true"
-    >
-  </ngx-auth-firebaseui-login> -->
-
-
   <router-outlet></router-outlet>
