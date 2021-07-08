@@ -3,6 +3,9 @@ import { getRandomInt } from "./common/utils/getRandomInt";
 import { adminApp } from "./common/services/firebase.service"
 
 async function initDatabase() {
+    console.log( "DatabaseInitiator: Starting db init" );
+
+    console.log( "DatabaseInitiator: Creating Fachbereich Minden" );
     //Fachbereiche
     const campusMinden = await prisma.department.create( {
         data: {
@@ -10,14 +13,17 @@ async function initDatabase() {
             description: "Campus in Minden"
         }
     } )
+    console.log( "DatabaseInitiator: Creating Master Informatik" );
     const infMaster = await prisma.studyCourse.create( {
         data: {
             name: "Informatik",
             degree: "Master",
-            departmentId: campusMinden.id
+            departmentId: campusMinden.id,
+            code: "BINF"
         }
     } )
-    const profInfMaster1 = await createLecturer(
+    console.log( "DatabaseInitiator: Creating Lecturers in Minden" );
+    const mindenProf1 = await createLecturer(
         "hans.meier@ilias20.de",
         new Date( '1975-12-17T03:24:00' ),
         "Hans",
@@ -27,7 +33,7 @@ async function initDatabase() {
         "MALE",
         campusMinden.id );
 
-    const profInfMaster2 = await createLecturer(
+    const mindenProf2 = await createLecturer(
         "ulrike.martens@ilias20.de",
         new Date( '1985-08-18T03:24:00' ),
         "Ulrike",
@@ -37,7 +43,7 @@ async function initDatabase() {
         "FEMALE",
         campusMinden.id );
 
-    const profInfMaster3 = await createLecturer(
+    const mindenProf3 = await createLecturer(
         "Kim.Wald@ilias20.de",
         new Date( '1990-08-18T03:24:00' ),
         "Kim",
@@ -46,7 +52,7 @@ async function initDatabase() {
         "Prof. Dr.",
         "DIVERSE",
         campusMinden.id );
-
+    console.log( "DatabaseInitiator: Creating Students in Master Informatik" );
     const studentInfMaster1 = await createStudent(
         "dennis.eller@ilias20.de",
         new Date( '1996-08-18T03:24:00' ),
@@ -84,6 +90,166 @@ async function initDatabase() {
         getRandomInt( 7 )
     );
 
+
+    console.log( "DatabaseInitiator: Creating Bachelor Informatik" );
+
+    const infBachelor = await prisma.studyCourse.create( {
+        data: {
+            name: "Informatik",
+            degree: "Bachelor",
+            departmentId: campusMinden.id,
+            code: "BINF"
+        }
+    } )
+
+    console.log( "DatabaseInitiator: Creating Students in Bachelor Informatik" );
+
+    const studentInfBachelor1 = await createStudent(
+        "ole.gramit@ilias20.de",
+        new Date( '1996-08-18T03:24:00' ),
+        "Ole",
+        "Gramit",
+        "017842324123464",
+        "",
+        "MALE",
+        infBachelor.id,
+        getRandomInt( 1500000 ).toString(),
+        getRandomInt( 7 ) );
+    const studentInfBachelor2 = await createStudent(
+        "jonas.posselt@ilias20.de",
+        new Date( '1995-06-17T03:24:00' ),
+        "Jonas",
+        "POSSELT",
+        "01784852464",
+        "",
+        "MALE",
+        infBachelor.id,
+        getRandomInt( 1500000 ).toString(),
+        getRandomInt( 7 )
+    );
+
+    const studentInfBachelor3 = await createStudent(
+        "kevin.schima@fh-bielefeld.de",
+        new Date( '1994-04-11T03:24:00' ),
+        "Kevin",
+        "Schima",
+        "01232146244",
+        "",
+        "MALE",
+        infBachelor.id,
+        getRandomInt( 1500000 ).toString(),
+        getRandomInt( 7 )
+    );
+
+    console.log( "DatabaseInitiator: Creating Fachbereich fbIuM" );
+
+    const fbIuM = await prisma.department.create( {
+        data: {
+            name: "IuM",
+            description: "Ingenieurwissenschaften und Mathematik"
+        }
+    } )
+    console.log( "DatabaseInitiator: Creating Bachelor Elektrotechnik" );
+    const bachelorElektrotechnik = await prisma.studyCourse.create( {
+        data: {
+            name: "Elektrotechnik",
+            degree: "Bachelor",
+            departmentId: fbIuM.id,
+            code: "BET"
+        }
+    } )
+    console.log( "DatabaseInitiator: Creating Students in Bachelor Elektrotechnik" );
+
+    const studentETBachelor1 = await createStudent(
+        "malte.reinsch@ilias20.de",
+        new Date( '1976-08-18T03:24:00' ),
+        "Malte",
+        "Reinsch",
+        "017425324",
+        "Dr.",
+        "MALE",
+        bachelorElektrotechnik.id,
+        getRandomInt( 1500000 ).toString(),
+        getRandomInt( 7 ) );
+    const studentETBachelor2 = await createStudent(
+        "tim.luecking@ilias20.de",
+        new Date( '1995-07-15T03:24:00' ),
+        "Tim",
+        "Lücking",
+        "014256834257",
+        "",
+        "MALE",
+        bachelorElektrotechnik.id,
+        getRandomInt( 1500000 ).toString(),
+        getRandomInt( 7 )
+    );
+
+    const studentETBachelor3 = await createStudent(
+        "jan.strutthoff@illias20.de",
+        new Date( '1994-09-19T03:24:00' ),
+        "Jan",
+        "Strutthoff",
+        "01794366997",
+        "",
+        "MALE",
+        bachelorElektrotechnik.id,
+        getRandomInt( 1500000 ).toString(),
+        getRandomInt( 7 )
+    );
+
+    console.log( "DatabaseInitiator: Creating Master Elektrotechnik" );
+
+
+    const masterElektrotechnik = await prisma.studyCourse.create( {
+        data: {
+            name: "Elektrotechnik",
+            degree: "Master",
+            departmentId: fbIuM.id,
+            code: "MET"
+        }
+    } )
+    console.log( "DatabaseInitiator: Creating Students in Master Elektrotechnik" );
+
+    const studentETMaster1 = await createStudent(
+        "leonie.bollweg@ilias20.de",
+        new Date( '1976-08-18T03:24:00' ),
+        "Leonie",
+        "Bollweg",
+        "017475624",
+        "Dr.",
+        "FEMALE",
+        masterElektrotechnik.id,
+        getRandomInt( 1500000 ).toString(),
+        getRandomInt( 7 ) );
+    const studentETMaster2 = await createStudent(
+        "saskia.meier@ilias20.de",
+        new Date( '1995-07-15T03:24:00' ),
+        "Saskia",
+        "Meier",
+        "017416834257",
+        "",
+        "FEMALE",
+        masterElektrotechnik.id,
+        getRandomInt( 1500000 ).toString(),
+        getRandomInt( 7 )
+    );
+
+    const studentETMaster3 = await createStudent(
+        "kim.janzen@illias20.de",
+        new Date( '1994-09-19T03:24:00' ),
+        "Kim",
+        "Janzen",
+        "01794378997",
+        "",
+        "DIVERSE",
+        masterElektrotechnik.id,
+        getRandomInt( 1500000 ).toString(),
+        getRandomInt( 7 )
+    );
+
+
+    console.log( "DatabaseInitiator: Creating Administratives" );
+
     const admin1 = await createAdministrative(
         "dennis-eller@gmx.net",
         new Date( '1994-04-11T03:24:00' ),
@@ -91,73 +257,14 @@ async function initDatabase() {
         "Admin",
         "01784239617",
         "",
-        "DIVERSE",
-        infMaster.id );
-
-
-
-
-    // const infBachelor = await prisma.studyCourse.create({
-    //     data:{
-    //         name:"Informatik",
-    //         degree:"Bachelor",
-    //         departmentId:campusMinden.id
-    //     }
-    // })
-
-    // const bachelorArchitektur = await prisma.studyCourse.create({
-    //     data:{
-    //         name:"Architektur",
-    //         degree:"Bachelor",
-    //         departmentId:campusMinden.id
-    //     }
-    // })
-
-    // const fbIuM = await prisma.department.create({
-    //     data:{
-    //         name:"IuM",
-    //         description:"Ingenieurwissenschaften und Mathematik"
-    //     }
-    // })
-    //         const bachelorMechatronik = await prisma.studyCourse.create({
-    //             data:{
-    //                 name:"Mechatronik",
-    //                 degree:"Bachelor",
-    //                 departmentId:fbIuM.id
-    //             }
-    //         })
-    //         const masterMechatronik = await prisma.studyCourse.create({
-    //             data:{
-    //                 name:"Mechatronik",
-    //                 degree:"Master",
-    //                 departmentId:fbIuM.id
-    //             }
-    //         })
-    //         const bachelorElektrotechnik = await prisma.studyCourse.create({
-    //             data:{
-    //                 name:"Elektrotechnik",
-    //                 degree:"Bachelor",
-    //                 departmentId:fbIuM.id
-    //             }
-    //         })
-    //         const masterELektrotechnik = await prisma.studyCourse.create({
-    //             data:{
-    //                 name:"Elektrotechnik",
-    //                 degree:"Master",
-    //                 departmentId:fbIuM.id
-    //             }
-    //         })
-
-
+        "DIVERSE" );
 
 
 
     console.log( "DatabaseInitiator: Finished db init" );
 }
 
-//TODO
-//test();
-async function resetDatabase(){
+async function resetDatabase() {
     const deleteAdministrative = prisma.administrative.deleteMany();
     const deleteStudyCourses = prisma.studyCourse.deleteMany();
     const deleteDepartment = prisma.department.deleteMany();
@@ -184,15 +291,6 @@ async function resetDatabase(){
         await adminApp.auth().deleteUser( user.uid );
     }
     console.log( "DatabaseInitiator: Deleted all firebase users" );
-}
-
-async  function createDepartments() {
-    const department = await prisma.department.create( {
-        data: {
-            name: "Campus Minden",
-            description: "Campus in Minden"
-        }
-    } )
 }
 
 async function createLecturer( mail: string,
@@ -222,12 +320,6 @@ async function createLecturer( mail: string,
             id: fbProfInfMaster1.uid
         }
     } )
-    function test( gender: string ): gender is ( "MALE" | "FEMALE" ) {
-        if ( gender === "MALE" ) { return true; }
-        if ( gender === "FEMALE" ) { return true; }
-        if ( gender === "DIVERSE" ) { return true; }
-        return false;
-    }
 
     function get( gender: string ) {
         if ( gender === "MALE" ) { return gender; }
@@ -260,7 +352,7 @@ async function createStudent( mail: string,
             active: true,
             birthdate: birthdate,
             firstname: firstname,
-            gender: get( gender ),
+            gender: parseGender( gender ),
             lastname: lastname,
             mail: mail,
             title: title,
@@ -281,8 +373,7 @@ async function createAdministrative( mail: string,
     lastname: string,
     phone: string,
     title: string,
-    gender: string,
-    courseId: number ) {
+    gender: string ) {
     const fbAdministrative = await adminApp.auth().createUser( {
         email: mail,
         password: "123456",
@@ -293,7 +384,7 @@ async function createAdministrative( mail: string,
             active: true,
             birthdate: birthdate,
             firstname: firstname,
-            gender: get( gender ),
+            gender: parseGender( gender ),
             lastname: lastname,
             mail: mail,
             title: title,
@@ -304,11 +395,11 @@ async function createAdministrative( mail: string,
 }
 
 
-function get( gender: string ) {
+function parseGender( gender: string ) {
     if ( gender === "MALE" ) { return gender; }
     if ( gender === "FEMALE" ) { return gender; }
     if ( gender === "DIVERSE" ) { return gender; }
     throw new Error( "Unknown Gender" );
 }
 
-export {initDatabase, resetDatabase}
+export { initDatabase, resetDatabase }
