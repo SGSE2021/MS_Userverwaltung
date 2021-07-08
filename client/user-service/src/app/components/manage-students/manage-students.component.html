@@ -1,4 +1,3 @@
-<!-- <pre>{{dataSource.data[1]|json}}</pre>-->
 <div id="container">
   <div id="header">
       <mat-form-field >
@@ -11,10 +10,7 @@
       </button>
   </div>
   <div id="tableContainer" class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
-
-      <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+    <table mat-table [dataSource]="dataSource" matSort summary="Table of all lecturers">
 
       <ng-container matColumnDef="uid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> UID </th>

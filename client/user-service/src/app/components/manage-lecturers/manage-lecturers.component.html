@@ -9,32 +9,32 @@
     </button>
   </div>
   <div id="tableContainer" class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table mat-table [dataSource]="dataSource" matSort summary="Table of all lecturers">
 
       <ng-container matColumnDef="uid">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> UID </th>
+        <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header> UID </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
 
 
       <ng-container matColumnDef="title">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Titel </th>
+        <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header> Titel </th>
         <td mat-cell *matCellDef="let element"> {{element.title}} </td>
       </ng-container>
 
       <ng-container matColumnDef="lastname">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nachname </th>
+        <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header> Nachname </th>
         <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
       </ng-container>
 
       <ng-container matColumnDef="firstname">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vorname </th>
+        <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header> Vorname </th>
         <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
       </ng-container>
 
 
       <ng-container matColumnDef="department">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fachbereich </th>
+        <th scope="col" mat-header-cell *matHeaderCellDef mat-sort-header> Fachbereich </th>
         <td mat-cell *matCellDef="let element"> {{element.department.name}} </td>
       </ng-container>
 
