@@ -9,7 +9,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 
 export class RestServer {
     public app: express.Application;
-    constructor( routes: Route[],openapiFile:string ) {
+    constructor( routes: Route[], openapiFile: string ) {
 
         this.app = express();
         this.app.use( cors( {
@@ -21,7 +21,9 @@ export class RestServer {
         this.app.use( bodyParser.urlencoded( { extended: true } ) );
 
         this.mountRoutes( routes );
-        this.initializeSwagger(openapiFile);
+        if ( openapiFile ) {
+            this.initializeSwagger( openapiFile );
+        }
         this.app.use( errorMiddleware );
 
 
@@ -34,21 +36,21 @@ export class RestServer {
     }
 
 
-  private initializeSwagger(filename:string) {
-    const options = {
-      swaggerDefinition: {
-        info: {
-          title: 'TESTESTSET API',
-          version: '1.0.0',
-          description: 'Example docs',
-        },
-      },
-      apis: [filename],
-    };
+    private initializeSwagger( filename: string ) {
+        const options = {
+            swaggerDefinition: {
+                info: {
+                    title: 'TESTESTSET API',
+                    version: '1.0.0',
+                    description: 'Example docs',
+                },
+            },
+            apis: [filename],
+        };
 
-    const specs = swaggerJSDoc(options);
-    this.app.use('/openapi-docs', swaggerUi.serve, swaggerUi.setup(specs));
-  }
+        const specs = swaggerJSDoc( options );
+        this.app.use( '/openapi-docs', swaggerUi.serve, swaggerUi.setup( specs ) );
+    }
 
     /**
      * Starts the server on the given port

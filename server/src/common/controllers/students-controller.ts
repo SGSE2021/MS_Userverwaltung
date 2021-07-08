@@ -4,7 +4,7 @@ import { StudentsService } from '../services/students.service';
 
 class StudentsController {
 
-    private studentsService: StudentsService;
+    public studentsService: StudentsService;
 
     constructor() {
         this.studentsService = new StudentsService();
