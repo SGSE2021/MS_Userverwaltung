@@ -12,7 +12,11 @@ class StudentsController {
 
     public getAllStudents = async ( req: Request, res: Response, next: NextFunction ): Promise<void> => {
         try {
-            const allStudents = await this.studentsService.getAllStudents();
+            let queryParam = "";
+            if ( req.query["name"] ) {
+                queryParam = req.query["name"].toString();
+            }
+            const allStudents = await this.studentsService.getAllStudents(queryParam);
             res.status( 200 ).json( allStudents );
         } catch ( error ) {
             next( error );

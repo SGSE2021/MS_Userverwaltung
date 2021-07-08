@@ -12,22 +12,51 @@ export class StudentsService {
     private studentMapper = new StudentMapper();
     private rabbitSender = new RabbitSender();
 
-    public async getAllStudents() {
-        const foundStudents = await prisma.student.findMany( {
-            include: {
-                course: {
-                    include: {
-                        department: true
+    public async getAllStudents(name:string) {
+        let foundStudents = [];
+        if (name==""){
+            foundStudents = await prisma.student.findMany( {
+                include: {
+                    course: {
+                        include: {
+                            department: true
+                        }
                     }
                 }
-            }
-        } );
+            } );
+        }else{
+            foundStudents = await prisma.student.findMany( {
+                include: {
+                    course: {
+                        include:{
+                            department:true
+                        }
+                    }
+                },
+                where: {
+                    OR: [
+                        {
+                            firstname: { contains: name }
+                        },
+                        {
+                            lastname: { contains: name }
+                        }
+                    ]
+                }
+            } );
+        }
+
+        
 
         const allStudents = [];
         for ( const item of foundStudents ) {
             const result = this.studentMapper.toDTO( item );
             allStudents.push( result );
         }
+
+        
+
+      
 
 
 

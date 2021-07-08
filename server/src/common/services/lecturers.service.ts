@@ -10,10 +10,29 @@ import { parseGender } from "../utils/gender-parser";
 export class LecturerService {
     private rabbitSender = new RabbitSender();
 
-    public async getAllLecturers() {
+    public async getAllLecturers( name: string ) {
+        if (name==""){
+            const foundLecturers = await prisma.lecturer.findMany( {
+                include: {
+                    department: true
+                }
+            } );
+            return foundLecturers;
+        }
+
         const foundLecturers = await prisma.lecturer.findMany( {
             include: {
                 department: true
+            },
+            where: {
+                OR: [
+                    {
+                        firstname: { contains: name }
+                    },
+                    {
+                        lastname: { contains: name }
+                    }
+                ]
             }
         } );
 

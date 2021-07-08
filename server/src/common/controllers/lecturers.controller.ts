@@ -4,7 +4,7 @@ import { AddLecturerDTO } from '../../../../common/dto/addlecturer.dto';
 
 export class LecturerController {
 
-    private lecturerService: LecturerService;
+    public lecturerService: LecturerService;
 
     constructor() {
         this.lecturerService = new LecturerService();
@@ -12,12 +12,19 @@ export class LecturerController {
 
     public getAllLecturers = async ( req: Request, res: Response, next: NextFunction ): Promise<void> => {
         try {
-            const allStudents = await this.lecturerService.getAllLecturers();
+            let queryParam = "";
+            if ( req.query["name"] ) {
+                queryParam = req.query["name"].toString();
+            }
+
+            const allStudents = await this.lecturerService.getAllLecturers( queryParam );
             res.status( 200 ).json( allStudents );
         } catch ( error ) {
             next( error );
         }
     };
+
+
 
     public getLecturerById = async ( req: Request, res: Response, next: NextFunction ): Promise<void> => {
         try {
