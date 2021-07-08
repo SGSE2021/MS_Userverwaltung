@@ -11,6 +11,7 @@ RUN npm install
 
 ENV INTERNAL_PORT=8080
 ENV EXTERNAL_PORT=8081
+ENV standardpassword="123456"
 ENV RABBIT_MQ="amqp://user:5ux6mBcfMX@rabbitmq.support.svc.cluster.local:5672/"
 EXPOSE 8080
 EXPOSE 8181
