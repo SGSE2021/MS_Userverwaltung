@@ -33,7 +33,8 @@ const restServerClient = new RestServer( [
     new ExternalLecturersRoute(),
     new ExternalAuthRoute(),
     new ExternalMaintenanceRoute(),
-    new InternalStudycoursesRoute()
+    new InternalStudycoursesRoute(),
+    new InternalAdministrativeRoute()
 ],
 "external-api.yml" );
 
