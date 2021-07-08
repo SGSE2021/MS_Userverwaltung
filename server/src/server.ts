@@ -2,7 +2,9 @@ import express from 'express';
 import errorMiddleware from './common/middlewares/error.middleware';
 import Route from "./common/interfaces/route.interface";
 import cors from "cors";
-import bodyParser from "body-parser"
+import bodyParser from "body-parser";
+import swaggerUi from 'swagger-ui-express';
+import swaggerJSDoc from 'swagger-jsdoc';
 
 
 export class RestServer {
@@ -19,6 +21,7 @@ export class RestServer {
         this.app.use( bodyParser.urlencoded( { extended: true } ) );
 
         this.mountRoutes( routes );
+        this.initializeSwagger();
         this.app.use( errorMiddleware );
 
 
@@ -29,6 +32,24 @@ export class RestServer {
             this.app.use( '/', route.router );
         } );
     }
+
+
+  private initializeSwagger() {
+    const options = {
+      swaggerDefinition: {
+        info: {
+          title: 'REST API',
+          version: '1.0.0',
+          description: 'Example docs',
+        },
+      },
+      apis: ['external-api.yml'],
+    };
+
+    const specs = swaggerJSDoc(options);
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+  }
+
     /**
      * Starts the server on the given port
      * 
