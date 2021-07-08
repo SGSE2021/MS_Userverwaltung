@@ -9,7 +9,7 @@ import swaggerJSDoc from 'swagger-jsdoc';
 
 export class RestServer {
     public app: express.Application;
-    constructor( routes: Route[] ) {
+    constructor( routes: Route[],openapiFile:string ) {
 
         this.app = express();
         this.app.use( cors( {
@@ -21,7 +21,7 @@ export class RestServer {
         this.app.use( bodyParser.urlencoded( { extended: true } ) );
 
         this.mountRoutes( routes );
-        this.initializeSwagger();
+        this.initializeSwagger(openapiFile);
         this.app.use( errorMiddleware );
 
 
@@ -34,7 +34,7 @@ export class RestServer {
     }
 
 
-  private initializeSwagger() {
+  private initializeSwagger(filename:string) {
     const options = {
       swaggerDefinition: {
         info: {
@@ -43,11 +43,11 @@ export class RestServer {
           description: 'Example docs',
         },
       },
-      apis: ['external-api.yml'],
+      apis: [filename],
     };
 
     const specs = swaggerJSDoc(options);
-    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+    this.app.use('/openapi-docs', swaggerUi.serve, swaggerUi.setup(specs));
   }
 
     /**

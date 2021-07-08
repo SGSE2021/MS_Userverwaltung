@@ -35,7 +35,8 @@ const restServerClient = new RestServer( [
     new ExternalAuthRoute(),
     new ExternalMaintenanceRoute(),
     new InternalStudycoursesRoute()
-] );
+],
+"external-api.yml" );
 
 const portMs = process.env.EXTERNAL_PORT || 8181;
 const restServerMs = new RestServer( [
@@ -43,7 +44,8 @@ const restServerMs = new RestServer( [
     new InternalDepartmentsRoute(),
     new InternalLecturerRoute(),
     new InternalAdministrativeRoute()
-] );
+],
+"internal-api.yml" );
 
 
 async function main() {
