@@ -113,9 +113,9 @@ export class StudentsService {
             }
 
         }
-
+    
         const newUser = await prisma.student.create( { data: user } );
-        await sendEmailVerification(user.id);
+        await sendEmailVerification(user.id,user.mail);
         this.rabbitSender.send( "users-student-add", JSON.stringify( newUser ) );
         return newUser;
     }
