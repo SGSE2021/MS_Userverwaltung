@@ -17,6 +17,17 @@ spec:
       containers:
       - name: userverwaltung
         image: sgse2021cr.azurecr.io/ms_userverwaltung:latest
+        env: 
+        - name: DATABASE_URL 
+          valueFrom: 
+            secretKeyRef: 
+              name: usersdb-secret
+              key: url
+        - name: RABBIT_MQ
+          valueFrom: 
+            secretKeyRef: 
+              name: rabbitmq-secret
+              key: url
         ports:
         - name: client-port
           containerPort: 8080
