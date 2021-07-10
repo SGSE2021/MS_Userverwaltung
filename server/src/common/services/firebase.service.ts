@@ -13,3 +13,10 @@ const config = require("../../../../server/firebase-admin-config")
 
 const app = firebase.default.initializeApp( config );
 export { app };
+
+export async function sendEmailVerification(uid:string){
+        const token = await adminApp.auth().createCustomToken(uid);
+        const result = await firebase.default.auth().signInWithCustomToken(token);
+        await result.user?.sendEmailVerification();
+        await firebase.default.auth().signOut();
+}

@@ -2,7 +2,7 @@ import { AddStudentDTO } from "../../../../common/dto/addstudent.dto"
 import { Prisma } from "../../../../database/node_modules/prisma/prisma-client"
 import prisma from "../../database";
 import { StudentMapper } from "../../common/mapper/student.mapper";
-import { adminApp as firebaseAdmin } from "./firebase.service"
+import { adminApp as firebaseAdmin, sendEmailVerification } from "./firebase.service"
 import { StudentDTO } from "../../../../common/dto/student.dto";
 import { RabbitSender } from "../../rabbitmq-client/rabbit.sender";
 import { parseGender } from "../utils/gender-parser";
@@ -94,6 +94,7 @@ export class StudentsService {
             displayName: userData.firstname + " " + userData.lastname
         } );
 
+
         const { gender, ...rest } = userData;
         const user: Prisma.StudentCreateInput = {
             active: rest.active,
@@ -114,6 +115,7 @@ export class StudentsService {
         }
 
         const newUser = await prisma.student.create( { data: user } );
+        await sendEmailVerification(user.id);
         this.rabbitSender.send( "users-student-add", JSON.stringify( newUser ) );
         return newUser;
     }
