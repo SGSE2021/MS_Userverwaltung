@@ -16,7 +16,7 @@ spec:
         "beta.kubernetes.io/os": linux
       containers:
       - name: userverwaltung
-        image: sgse2021containerregistry.azurecr.io/ms_userverwaltung:latest
+        image: sgse2021cr.azurecr.io/ms_userverwaltung:latest
         ports:
         - containerPort: 8080 #client api
         - containerPort: 8181 #ms api
