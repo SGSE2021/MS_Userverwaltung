@@ -20,7 +20,7 @@ spec:
         env: 
         - name: DATABASE_URL 
           valueFrom: 
-            secretKeyRef: 
+            secretKeyRef:  
               name: usersdb-secret
               key: url
         - name: RABBIT_MQ
