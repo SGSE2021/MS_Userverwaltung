@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RoleDTO } from '@common/dto/role.enum';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { LoginComponent } from "./components/login/login.component";
-import { LogoutComponent } from './components/logout/logout/logout.component';
+import { LogoutComponent } from './components/logout/logout.component';
 import { ManageLecturersComponent } from './components/manage-lecturers/manage-lecturers.component';
 import { ManageStudentsComponent } from './components/manage-students/manage-students.component';
 import { SettingsComponent } from './components/settings/settings.component';
