@@ -12,6 +12,7 @@ import { RoleGuard } from './services/auth/role.guard';
 const routes: Routes = [
   { path:'', component:HomePageComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LoginComponent },
   { path: 'settings', component: SettingsComponent,canActivate:[AuthGuard]},
   { path: 'students', component: ManageStudentsComponent,
   canActivate:[RoleGuard,AuthGuard],

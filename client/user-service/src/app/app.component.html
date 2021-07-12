@@ -19,7 +19,7 @@
     <a mat-list-item color="primary" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/booking/" (click)="opened=false">Raumbuchung</a>
 
     <a *ngIf= "this.authService.user.getValue().uid == '-1'" mat-list-item color="primary" [routerLink]="['/login']">Einloggen</a>
-    <a *ngIf= "(this.authService.user.getValue().uid != '-1')" mat-list-item color="primary" (click)="authService.logout()">Ausloggen</a>
+    <a *ngIf= "(this.authService.user.getValue().uid != '-1')" mat-list-item color="primary" [routerLink]="['/logout']">Ausloggen</a>
     
   </mat-nav-list>
   </mat-sidenav>
