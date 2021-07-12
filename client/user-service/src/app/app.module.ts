@@ -23,7 +23,7 @@ import { ManageLecturersComponent } from './components/manage-lecturers/manage-l
 import { CreateLecturerComponent } from './components/manage-lecturers/components/create-lecturer/create-lecturer.component';
 import { LecturerTableComponent } from './components/manage-lecturers/components/lecturer-table/lecturer-table.component';
 import { ChangePasswortComponent } from './components/change-password/change-passwort/change-passwort.component';
-import { LogoutComponent } from './components/logout/logout/logout.component';  
+import { LogoutComponent } from './components/logout/logout.component';  
 
 const config = {    
   apiKey: "AIzaSyA8SJNujTKurGNLA15PQqPjz0Pi2rpeEAw",
