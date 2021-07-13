@@ -1,3 +1,4 @@
+  
 import express from 'express';
 import errorMiddleware from './common/middlewares/error.middleware';
 import Route from "./common/interfaces/route.interface";
@@ -18,7 +19,12 @@ export class RestServer {
         }}));
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: true }));
-       
+
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({
+          extended: true
+        }));
+        
 
 
         this.mountRoutes( routes );
@@ -41,16 +47,16 @@ export class RestServer {
         const options = {
             swaggerDefinition: {
                 info: {
-                    title: 'UsersService External API API',
+                    title: 'TESTESTSET API',
                     version: '1.0.0',
-                    description: 'Official API docs',
+                    description: 'Example docs',
                 },
             },
             apis: [filename],
         };
 
         const specs = swaggerJSDoc( options );
-        this.app.use( '/openapi-docs', swaggerUi.serve, swaggerUi.setup( specs ) );
+       // this.app.use( '/openapi-docs', swaggerUi.serve, swaggerUi.setup( specs ) );
     }
 
     /**
