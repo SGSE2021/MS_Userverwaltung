@@ -16,8 +16,6 @@ export { app };
 
 export async function sendEmailVerification(uid:string,mail:string){
         const token = await adminApp.auth().createCustomToken(uid);
-        const result = await app.auth().signInWithCustomToken(token);
-        await result.user?.sendEmailVerification();
         await app.auth().sendPasswordResetEmail(mail);
         await app.auth().signOut();
 }
