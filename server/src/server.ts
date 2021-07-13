@@ -46,9 +46,9 @@ export class RestServer {
         const options = {
             swaggerDefinition: {
                 info: {
-                    title: 'TESTESTSET API',
+                    title: 'UsersService External API API',
                     version: '1.0.0',
-                    description: 'Example docs',
+                    description: 'Official API docs',
                 },
             },
             apis: [filename],
