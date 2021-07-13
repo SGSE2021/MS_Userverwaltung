@@ -11,9 +11,9 @@
     <mat-nav-list>
     <a mat-list-item color="primary" [routerLink]="['/']" (click)="opened=false">Startseite</a>
     <a mat-list-item color="primary" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/messages/" (click)="log('')">Nachrichten</a>
-    <a *ngIf = "this.authService.user.getValue().role===2" mat-list-item color="primary" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/courses/" (click)="opened=false">Kurse</a>
-    <a *ngIf = "this.authService.user.getValue().role!==2" mat-list-item color="primary" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/resources/" (click)="opened=false">Kurse</a>
-    <a  mat-list-item color="primary" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/courses/appointments"  (click)="opened=false">Termine</a>
+    <a mat-list-item color="primary" *ngIf = "this.authService.user.getValue().role===2" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/courses/courses" (click)="opened=false">Kurse</a>
+    <a mat-list-item color="primary" *ngIf = "this.authService.user.getValue().role!==2"  href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/resources/" (click)="opened=false">Kurse</a>
+    <a mat-list-item color="primary" *ngIf ="this.authService.user.getValue().role==2"  href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/courses/appointments"  (click)="opened=false">Termine</a>
     <a mat-list-item color="primary" href="https://sgse2021-ilias.westeurope.cloudapp.azure.com/exams/"  (click)="opened=false" >Prüfungen</a>
 
     <a *ngIf ="this.authService.user.getValue().role==2" mat-list-item color="primary"  (click)="opened=false" [routerLink]="['/students']" >Studierende</a>
