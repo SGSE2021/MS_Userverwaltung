@@ -51,11 +51,11 @@ export class SettingsComponent implements OnInit {
   }
 
   public submitLecturerChanges() {
-    if ( !this.student?.id ) { return }
+    if ( !this.lecturer?.id ) { return }
     console.dir( "Sending lecturer", this.lecturerTable?.lecturerForm.value );
-    this.lecturerService.updateLecturer( this.student?.id, this.lecturerTable?.lecturerForm.value ).subscribe( ( student ) => {
-      if ( !this.student?.id ) { return; }
-      this.lecturerService.getLecturerById( this.student.id ).subscribe( ( lecturer ) => {
+    this.lecturerService.updateLecturer( this.lecturer?.id, this.lecturerTable?.lecturerForm.value ).subscribe( ( student ) => {
+      if ( !this.lecturer?.id ) { return; }
+      this.lecturerService.getLecturerById( this.lecturer.id ).subscribe( ( lecturer ) => {
         this.lecturer = lecturer;
       } )
     } );
@@ -65,7 +65,7 @@ export class SettingsComponent implements OnInit {
   public submitStudentChanges() {
     if ( !this.student?.id ) { return }
     console.dir( "Sending student", this.studentsTable?.studentForm.value );
-    this.lecturerService.updateLecturer( this.student?.id, this.studentsTable?.studentForm.value ).subscribe( ( student ) => {
+    this.studentService.updateStudent( this.student?.id, this.studentsTable?.studentForm.value ).subscribe( ( student ) => {
       if ( !this.student?.id ) { return; }
       this.studentService.getStudentById( this.student.id ).subscribe( ( student ) => {
         this.student = student;

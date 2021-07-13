@@ -1,426 +1,126 @@
 tags:
-  - name: authentification
-    description: Everything about your authentification.
-  - name: students
-    description: Everything about Students.
-  - name: lecturers
-    description: Everything about Lecturers.
-  - name: settings
-    description: Everything about Settings.
-  - name: departments
-    description: Everything about Departments.
-  - name: maintenance
-    description: Everything about Maintenance.
+- name: users
+  description: users API
 
 paths:
-  /login:
-    post:
-      tags:
-        - authentification
-      summary: Logging user in.
-      operationId: loginUser
-      responses:
-        '200':
-          description: Login sucessfull.
-        '401':
-          description: E-Mail or password wrong.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Login'
-        description: Login data.
-  /logout:
-    post:
-      tags:
-        - authentification
-      summary: Logs user out.
-      operationId: logoutUser
-      responses:
-        '204':
-          description: Logout sucessfull.
-  /students:
+# [GET] users
+  /users:
     get:
       tags:
-        - students
-      operationId: getAllStudents
+      - users
+      summary: Find All Users
       responses:
-          '200':
-            description: Reponse success
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Student'
-          '404':
-           description: Students not found.
+        200:
+          description: 'OK'
+        500:
+          description: 'Server Error'
+
+# [POST] users
     post:
-        tags:
-          - students
-        operationId: addStudent
-        requestBody:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Student'
-        description: adds an student.
-        responses:
-            '200':
-              description: Reponse success
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Student'
-            '401':
-              description: Not authorized.
-  /students/{studentId}:
-    put:
-        tags:
-          - students
-        operationId: updateStudent
-        parameters:
-        - in: path
-          name: studentId
-          description: Id of the student to be updated.
-          required: true
-          schema:
-            type: string
-        requestBody:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Student'
-        description: Updates a student.
-        responses:
-            '200':
-              description: Reponse success
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Student'
-            '404':
-              description: Student not found.
-    delete:
-        tags:
-          - students
-        operationId: deleteStudent
-        parameters:
-        - in: path
-          name: studentId
-          description: Id of the student to be deleted.
-          required: true
-          schema:
-            type: string
-        description: Deletes a student.
-        responses:
-            '204':
-              description: Deletion successfull.
-            '404':
-              description: Student not found.
-    get:
-        tags:
-          - students
-        operationId: getStudentById
-        parameters:
-        - in: path
-          name: studentId
-          description: Id of the student to be selected.
-          required: true
-          schema:
-            type: string
-        description: Gets a student.
-        responses:
-          '200':
-            description: Reponse success
-            content:
-              application/json:
-                schema:
-                  $ref: '#/components/schemas/Student'
-          '404':
-              description: Student not found.
-  /lecturers:
-    get:
       tags:
-        - lecturers
-      operationId: getAllLecturers
-      responses:
-          '200':
-            description: Reponse success
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Lecturer'
-          '404':
-           description: Lecturers not found.
-    post:
-        tags:
-          - lecturers
-        operationId: addLecturer
-        requestBody:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Lecturer'
-        description: adds an lecturer.
-        responses:
-            '200':
-              description: Reponse success
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Lecturer'
-            '401':
-              description: Not authorized.
-  /lecturers/{lecturerId}:
-    put:
-        tags:
-          - lecturers
-        operationId: updateLecturer
-        parameters:
-        - in: path
-          name: lecturerId
-          description: Id of the lecturer to be updated.
-          required: true
-          schema:
-            type: string
-        requestBody:
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Lecturer'
-        description: Updates a lecturer.
-        responses:
-            '200':
-              description: Reponse success
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/Student'
-            '404':
-              description: Lecturer not found.
-    delete:
-        tags:
-          - lecturers
-        operationId: deleteLecturer
-        parameters:
-        - in: path
-          name: lecturerId
-          description: Id of the lecturer to be deleted.
-          required: true
-          schema:
-            type: string
-        description: Deletes a lecturer.
-        responses:
-            '204':
-              description: Deletion successfull.
-            '404':
-              description: lecturer not found.
-    get:
-      tags:
-        - lecturers
-      operationId: getLecturerById
+      - users
+      summary: Add User
       parameters:
-      - in: path
-        name: lecturerId
-        description: Id of the lecturer to be selected.
+      - name: body
+        in: body
+        description: user Data
         required: true
         schema:
-          type: string
-      description: Gets a lecturer.
+          $ref: '#/definitions/users'
       responses:
-        '200':
-          description: Reponse success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Lecturer'
-        '404':
-            description: lecturer not found.
-  /settings/mail:
-    put:
-      tags:
-        - settings
-      summary: Updates Mail.
-      operationId: updateMail
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-              example: "dennis@new.de"
-        description: New mail.
-      responses:
-        '202':
-          description: E-Mail updated.
-        '400':
-          description: Invalid Input.
-  /settings/password:
-    put:
-      tags:
-        - settings
-      summary: Updates Password.
-      operationId: updatePassword
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: string
-              example: "$Secure&Password123§"
-        description: New Password.
-      responses:
-        '202':
-          description: Password updated.
-        '400':
-          description: Invalid Input.
-  /getUserInfo/{token}:
-    post:
-      tags:
-          - authentification
-      parameters:
-      - in: path
-        name: token
-        required: true
-        schema:
-          type: string
-      operationId: verifyUser
-      description: verifies an user.
-      responses:
-            '200':
-              description: Reponse success
-              content:
-                application/json:
-                  schema:
-                    $ref: '#/components/schemas/UserInfo'
-            '404':
-              description: User not found.
-  /departments:
+        201:
+          description: 'Created'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [GET] users/id
+  /users/{id}:
     get:
       tags:
-        - departments
-      operationId: getAllDepartments
+      - users
+      summary: Find User By Id
+      parameters:
+      - name: id
+        in: path
+        description: User Id
+        required: true
+        type: integer
       responses:
-          '200':
-            description: Reponse success
-            content:
-              application/json:
-                schema:
-                  type: array
-                  items:
-                    $ref: '#/components/schemas/Department'
-          '404':
-           description: Students not found.
-    
-components:
-  schemas:
-    Student:
-      type: object
-      properties:
-        id:
-          type: string
-          example: "dasdasd-asdasdasd-asdasdasd"
-        firstname:
-          type: string
-          example: Dennis
-        lastname:
-          type: string
-          example: Eller
-        gender:
-          type: string
-          example: m
-        birthday:
-          type: string
-          example: 24.12.1996
-        active:
-          type: boolean
-          example: true
-        matriculation_number:
-          type: integer
-          example: 1109421
-        semester:
-          type: integer
-          example: 2
-        studycourse:
-          $ref: '#/components/schemas/StudyCourse'
-    Lecturer:
-      type: object
-      properties:
-        id:
-          type: string
-          example: "dasdasd-asdasdasd-asdasdasd"
-        firstname:
-          type: string
-          example: Uwe
-        lastname:
-          type: string
-          example: Müller
-        gender:
-          type: string
-          example: m
-        birthday:
-          type: string
-          example: 01.02.1961
-        active:
-          type: boolean
-          example: true
-        department:
-          $ref: '#/components/schemas/Department'
-    Department:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 12
-        name:
-          type: string
-          example: Campus Minden
-        description:
-          type: string
-          example: Fachstandort Informatik.
-        studyCourses:
-          type: array
-          items:
-            $ref: '#/components/schemas/StudyCourse'
-    StudyCourse:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 12
-        name:
-          type: string
-          example: Master Informatik
-        description:
-          type: string
-          example: Master of Science
-    Login:
-      type: object
-      required:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [PUT] users/id
+    put:
+      tags:
+      - users
+      summary: Update User By Id
+      parameters:
+      - name: id
+        in: path
+        description: user Id
+        required: true
+        type: integer
+      - name: body
+        in: body
+        description: user Data
+        required: true
+        schema:
+          $ref: '#/definitions/users'
+      responses:
+        200:
+          description: 'OK'
+        400:
+          description: 'Bad Request'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# [DELETE] users/id
+    delete:
+      tags:
+      - users
+      summary: Delete User By Id
+      parameters:
+      - name: id
+        in: path
+        description: user Id
+        required: true
+        type: integer
+      responses:
+        200:
+          description: 'OK'
+        409:
+          description: 'Conflict'
+        500:
+          description: 'Server Error'
+
+# definitions
+definitions:
+  users:
+    type: object
+    required:
         - email
         - password
-      properties:
-        email:
-          type: string
-          format: email
-          example: dennis@test.de
-        password:
-          type: string
-          format: password
-          example: secure123
-    UserInfo:
-      type: object
-      properties:
-        uid:
-          type: string
-          example: "SDFSDF465SDF4SD6F54SD65FSDFSDFEHHOASBDCAUIASFSFA7FASF"
-        firstname:
-          type: string
-          example: Dennis
-        lastname:
-          type: string
-          example: Eller
-        role:
-          type: integer
-          example: 1
+    properties:
+      id:
+        type: integer
+        description: user Id
+      email:
+        type: string
+        description: user Email
+      password:
+        type: string
+        description: user Password
+
+schemes:
+ - https
+ - http

@@ -1,4 +1,3 @@
-  
 import express from 'express';
 import errorMiddleware from './common/middlewares/error.middleware';
 import Route from "./common/interfaces/route.interface";
@@ -56,7 +55,7 @@ export class RestServer {
         };
 
         const specs = swaggerJSDoc( options );
-       // this.app.use( '/openapi-docs', swaggerUi.serve, swaggerUi.setup( specs ) );
+        this.app.use( '/openapi-docs', swaggerUi.serve, swaggerUi.setup( specs ) );
     }
 
     /**
