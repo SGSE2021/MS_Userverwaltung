@@ -9,7 +9,7 @@ spec:
       app: userverwaltung-frontend
   template:
     metadata:
-      labels:
+      labels: 
         app: userverwaltung-frontend
     spec:
       nodeSelector:
