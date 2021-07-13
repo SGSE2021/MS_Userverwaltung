@@ -12,13 +12,19 @@ export class RestServer {
     constructor( routes: Route[], openapiFile: string ) {
 
         this.app = express();
-        this.app.use( cors( {
-            credentials: true, origin: function ( origin: any, callback: any ) {
-                callback( null, true );
-            }
-        } ) );
-        this.app.use( bodyParser.json() );
-        this.app.use( bodyParser.urlencoded( { extended: true } ) );
+
+        this.app.use(cors({credentials: true, origin: function (origin:any, callback:any) {
+            callback(null, true);
+        }}));
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: true }));
+
+        this.app.use(express.json());
+        this.app.use(express.urlencoded({
+          extended: true
+        }));
+        
+
 
         this.mountRoutes( routes );
         if ( openapiFile ) {

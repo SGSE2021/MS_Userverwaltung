@@ -42,7 +42,7 @@ export class AuthService {
     const userInfo =await this.http.post<UserInfoDTO>(requestUrl,{}).toPromise();
     this.user.next( userInfo);
 
-    console.dir( "New user ", this.user.getValue() );
+    console.log( "New user ", JSON.stringify( this.user.getValue()));
     localStorage.setItem( "current-user", JSON.stringify( this.user.getValue() ) );
 
 
